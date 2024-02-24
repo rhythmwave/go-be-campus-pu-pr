@@ -1,0 +1,90 @@
+syntax = "proto3";
+package general_auth;
+option go_package = "handlers/general/auth";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponseData {
+  string access_token = 1;
+  string refresh_token = 2;
+  string app_type = 3;
+  repeated string permission_names = 4;
+  string expiry_time = 5;
+  string name = 6;
+  string username = 7;
+  string admin_role_name = 8;
+}
+
+message LoginResponse {
+  Meta meta = 1;
+  LoginResponseData data = 2;
+}
+
+message RefreshTokenRequest {}
+
+message UpdatePasswordRequest {
+  string old_password = 1;
+  string new_password = 2;
+}
+
+message UpdatePasswordResponseData {}
+
+message UpdatePasswordResponse {
+  Meta meta = 1;
+  UpdatePasswordResponseData data = 2;
+}
+
+message LogoutRequest {}
+
+message LogoutResponseData {}
+
+message LogoutResponse {
+  Meta meta = 1;
+  LogoutResponseData data = 2;
+}
+
+message GetSsoAuthRequest {}
+
+message GetSsoAuthResponseData {
+  string url = 1;
+  string app_id = 2;
+  string frontend_url = 3;
+}
+
+message GetSsoAuthResponse {
+  Meta meta = 1;
+  GetSsoAuthResponseData data = 2;
+}
+
+message LoginWithSsoRequest {
+  string sso_code = 1;
+  string username = 2;
+}
+
+service GeneralAuthHandler {
+  rpc Login(LoginRequest) returns (LoginResponse) {}
+  rpc RefreshToken(RefreshTokenRequest) returns (LoginResponse) {}
+  rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse) {}
+  rpc Logout(LogoutRequest) returns (LogoutResponse) {}
+  rpc GetSsoAuth(GetSsoAuthRequest) returns (GetSsoAuthResponse) {}
+  rpc LoginWithSso(LoginWithSsoRequest) returns (LoginResponse) {}
+}
+

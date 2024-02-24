@@ -1,0 +1,40 @@
+syntax = "proto3";
+package root_permission;
+option go_package = "handlers/root/permission";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string name = 2;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+service RootPermissionHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+}
+

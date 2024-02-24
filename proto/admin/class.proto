@@ -1,0 +1,305 @@
+syntax = "proto3";
+package admin_class;
+option go_package = "handlers/admin/class";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string sort = 4;
+  string sort_by = 5;
+  string study_program_id = 6;
+  string semester_id = 7;
+  string is_active = 8;
+  string class_name = 9;
+  string subject_name = 10;
+  string subject_id = 11;
+  bool is_mbkm = 12;
+  string for_odd_semester = 13;
+}
+
+message GetListResponseDataLecturer {
+  string id = 1;
+  string name = 2;
+  string front_title = 3;
+  string back_degree = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string name = 2;
+  string subject_id = 3;
+  string subject_code = 4;
+  string subject_name = 5;
+  bool subject_is_mandatory = 6;
+  uint32 subject_semester_package = 7;
+  uint32 total_participant = 8;
+  repeated GetListResponseDataLecturer lecturers = 9;
+  uint32 subject_theory_credit = 10;
+  uint32 subject_practicum_credit = 11;
+  uint32 subject_field_practicum_credit = 12;
+  bool is_active = 13;
+  uint32 maximum_participant = 14;
+  uint32 unapproved_study_plan = 15;
+  uint32 total_material = 16;
+  uint32 total_work = 17;
+  uint32 total_discussion = 18;
+  uint32 total_exam = 19;
+  uint32 total_lecture_plan = 20;
+  uint32 total_lecture_done = 21;
+  uint32 total_graded_participant = 22;
+  string study_level_id = 23;
+  uint32 total_event = 24;
+  string application_deadline = 25;
+  string curriculum_id = 26;
+  string curriculum_name = 27;
+  string study_program_id = 28;
+  string study_program_name = 29;
+  string semester_id = 30;
+  uint32 semester_start_year = 31;
+  string school_year = 32;
+  string semester_type = 33;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseDataLecturer {
+  string id = 1;
+  string name = 2;
+  string front_title = 3;
+  string back_degree = 4;
+  bool is_grading_responsible = 5;
+}
+
+message GetDetailResponseDataGradeComponent {
+  string id = 1;
+  string name = 2;
+  double percentage = 3;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string name = 2;
+  string study_program_id = 3;
+  string study_program_name = 4;
+  string dikti_study_program_type = 5;
+  string study_level_short_name = 6;
+  string semester_id = 7;
+  uint32 semester_start_year = 8;
+  string school_year = 9;
+  string semester_type = 10;
+  string curriculum_id = 11;
+  string curriculum_name = 12;
+  string curriculum_year = 13;
+  string subject_id = 14;
+  string subject_code = 15;
+  string subject_name = 16;
+  string scope = 17;
+  bool is_online = 18;
+  bool is_offline = 19;
+  uint32 minimum_participant = 20;
+  uint32 maximum_participant = 21;
+  uint32 total_participant = 22;
+  string remarks = 23;
+  bool is_active = 24;
+  repeated GetDetailResponseDataLecturer lecturers = 25;
+  repeated GetDetailResponseDataGradeComponent grade_components = 26;
+  string study_level_id = 27;
+  string application_deadline = 28;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequestLecturer {
+  string id = 1;
+  bool is_grading_responsible = 2;
+}
+
+message CreateRequest {
+  string subject_id = 1;
+  string semester_id = 2;
+  string name = 3;
+  string scope = 4;
+  bool is_online = 5;
+  bool is_offline = 6;
+  uint32 minimum_participant = 7;
+  uint32 maximum_participant = 8;
+  string remarks = 9;
+  repeated CreateRequestLecturer lecturers = 10;
+  string application_deadline = 11;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequestLecturer {
+  string id = 1;
+  bool is_grading_responsible = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string subject_id = 2;
+  string name = 3;
+  string scope = 4;
+  bool is_online = 5;
+  bool is_offline = 6;
+  uint32 minimum_participant = 7;
+  uint32 maximum_participant = 8;
+  string remarks = 9;
+  repeated UpdateRequestLecturer lecturers = 10;
+  string application_deadline = 11;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message UpdateActivationRequest {
+  string id = 1;
+  bool is_active = 2;
+}
+
+message UpdateActivationResponseData {}
+
+message UpdateActivationResponse {
+  Meta meta = 1;
+  UpdateActivationResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+message DuplicateRequest {
+  string from_semester_id = 1;
+  string to_semester_id = 2;
+}
+
+message DuplicateResponseData {}
+
+message DuplicateResponse {
+  Meta meta = 1;
+  DuplicateResponseData data = 2;
+}
+
+message BulkUpdateMaximumParticipantRequestData {
+  string class_id = 1;
+  uint32 maximum_participant = 2;
+}
+
+
+message BulkUpdateMaximumParticipantRequest {
+  repeated BulkUpdateMaximumParticipantRequestData data = 1;
+}
+
+message BulkUpdateMaximumParticipantResponseData {}
+
+message BulkUpdateMaximumParticipantResponse {
+  Meta meta = 1;
+  BulkUpdateMaximumParticipantResponseData data = 2;
+}
+
+message GetClassParticipantListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string class_id = 4;
+  string lecture_id = 5;
+  string is_graded = 6;
+  string student_id = 7;
+}
+
+message GetClassParticipantListResponseDataGrade {
+  string class_grade_component_id = 1;
+  string class_grade_component_name = 2;
+  double initial_grade = 3;
+  double final_grade = 4;
+}
+
+message GetClassParticipantListResponseData {
+  string student_id = 1;
+  int64 student_nim_number = 2;
+  string student_name = 3;
+  string study_program_id = 4;
+  string study_program_name = 5;
+  string dikti_study_program_code = 6;
+  string dikti_study_program_type = 7;
+  string study_level_short_name = 8;
+  uint32 total_attendance = 9;
+  double attendance_percentage = 10;
+  uint32 total_sick = 11;
+  uint32 total_leave = 12;
+  uint32 total_awol = 13;
+  bool is_attend = 14;
+  bool is_sick = 15;
+  bool is_leave = 16;
+  bool is_awol = 17;
+  double grade_point = 18;
+  string grade_code = 19;
+  string graded_by_admin_id = 20;
+  string graded_by_admin_name = 21;
+  string graded_by_lecturer_id = 22;
+  string graded_by_lecturer_name = 23;
+  string graded_at = 24;
+  uint32 subject_repetition = 25;
+  repeated GetClassParticipantListResponseDataGrade grades = 26;
+}
+
+message GetClassParticipantListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetClassParticipantListResponseData data = 3;
+}
+
+service AdminClassHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc UpdateActivation(UpdateActivationRequest) returns (UpdateActivationResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  rpc Duplicate(DuplicateRequest) returns (DuplicateResponse) {}
+  rpc BulkUpdateMaximumParticipant(BulkUpdateMaximumParticipantRequest) returns (BulkUpdateMaximumParticipantResponse) {}
+  rpc GetClassParticipantList(GetClassParticipantListRequest) returns (GetClassParticipantListResponse) {}
+}

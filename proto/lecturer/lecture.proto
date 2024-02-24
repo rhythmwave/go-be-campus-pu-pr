@@ -1,0 +1,111 @@
+syntax = "proto3";
+package lecturer_lecture;
+option go_package = "handlers/lecturer/lecture";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  string class_id = 1;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string lecture_plan_date = 2;
+  uint32 lecture_plan_day_of_week = 3;
+  uint32 lecture_plan_start_time = 4;
+  uint32 lecture_plan_end_time = 5;
+  string lecture_actual_date = 6;
+  uint32 lecture_actual_day_of_week = 7;
+  uint32 lecture_actual_start_time = 8;
+  uint32 lecture_actual_end_time = 9;
+  bool is_manual_participation = 10;
+  string autonomous_participation_start_time = 11;
+  string autonomous_participation_end_time = 12;
+  uint32 attending_participant = 13;
+  string updated_at = 14;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  repeated GetListResponseData data = 2;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseStudent {
+  string id = 1;
+  int64 nim_number = 2;
+  string name = 3;
+  bool is_attend = 4;
+  bool is_sick = 5;
+  bool is_leave = 6;
+  bool is_awol = 7;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string subject_id = 2;
+  string subject_name = 3;
+  string semester_id = 4;
+  string semester_school_year = 5;
+  string semester_type = 6;
+  string lecture_theme = 7;
+  string lecture_subject = 8;
+  string remarks = 9;
+  repeated GetDetailResponseStudent students = 10;
+  string class_id = 11;
+  string class_name = 12;
+  string study_program_id = 13;
+  string study_program_name = 14;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message UpdateRequestParticipant {
+  string student_id = 1;
+  bool is_attend = 2;
+  bool is_sick = 3;
+  bool is_leave = 4;
+  bool is_awol = 5;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string lecture_theme = 2;
+  string lecture_subject = 3;
+  string remarks = 4;
+  bool is_manual_participation = 5;
+  repeated UpdateRequestParticipant participants = 6;
+  string autonomous_participation_end_time = 7;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+service LecturerLectureHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+}

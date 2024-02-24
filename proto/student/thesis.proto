@@ -1,0 +1,126 @@
+syntax = "proto3";
+package student_thesis;
+option go_package = "handlers/student/thesis";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetDetailRequest {}
+
+message GetDetailResponseDataFile {
+  string id = 1;
+  string file_url = 2;
+  string file_path = 3;
+  string file_path_type = 4;
+  string file_description = 5;
+}
+
+message GetDetailResponseDataThesisSupervisor {
+  string id = 1;
+  string lecturer_id = 2;
+  string lecturer_name = 3;
+  string lecturer_front_title = 4;
+  string lecturer_back_degree = 5;
+  string thesis_supervisor_role_id = 6;
+  string thesis_supervisor_role_name = 7;
+  uint32 thesis_supervisor_role_sort = 8;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string student_id = 2;
+  string student_name = 3;
+  int64 student_nim_number = 4;
+  string start_semester_id = 5;
+  string start_semester_type = 6;
+  string start_semester_school_year = 7;
+  string finish_semester_id = 8;
+  string finish_semester_type = 9;
+  string finish_semester_school_year = 10;
+  string topic = 11;
+  string title = 12;
+  string english_title = 13;
+  string start_date = 14;
+  string finish_date = 15;
+  string remarks = 16;
+  bool is_joint_thesis = 17;
+  string status = 18;
+  string proposal_seminar_date = 19;
+  string proposal_certificate_number = 20;
+  string proposal_certificate_date = 21;
+  uint32 thesis_defense_count = 22;
+  double grade_point = 23;
+  string grade_code = 24;
+  repeated GetDetailResponseDataFile files = 25;
+  repeated GetDetailResponseDataThesisSupervisor thesis_supervisors = 26;
+}
+
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequest {
+  string topic = 1;
+  string title = 2;
+  string english_title = 3;
+  string remarks = 4;
+  bool is_joint_thesis = 5;
+  string file_path = 6;
+  string file_path_type = 7;
+  string file_description = 8;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequestFile {
+  string file_path = 1;
+  string file_path_type = 2;
+  string file_description = 3;
+}
+
+message UpdateRequestThesisSupervisor {
+  string lecturer_id = 1;
+  string thesis_supervisor_role_id = 2;
+}
+
+message UpdateRequest {
+  string topic = 1;
+  string title = 2;
+  string english_title = 3;
+  string remarks = 4;
+  bool is_joint_thesis = 5;
+  repeated UpdateRequestFile files = 6;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+service StudentThesisHandler {
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+}
+

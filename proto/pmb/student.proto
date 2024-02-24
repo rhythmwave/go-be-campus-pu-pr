@@ -1,0 +1,79 @@
+syntax = "proto3";
+package pmb_student;
+option go_package = "handlers/pmb/student";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message BulkCreateRequestData {
+  int64 nim_number = 1;
+  string name = 2;
+  string sex = 3;
+  string marital_status = 4;
+  uint32  birth_regency_id = 5;
+  string birth_date = 6;
+  string religion = 7;
+  string address = 8;
+  string rt = 9;
+  string rw = 10;
+  uint32  village_id = 11;
+  string postal_code = 12;
+  string id_number = 13;
+  string nisn_number = 14;
+  string mobile_phone_number = 15;
+  string nationality = 16;
+  string dikti_study_program_code = 17;
+  string school_name = 18;
+  string school_address = 19;
+  uint32  school_province_id = 20;
+  string school_major = 21;
+  string school_type = 22;
+  string school_graduation_year = 23;
+  string father_name = 24;
+  string father_id_number = 25;
+  string father_birth_date = 26;
+  string father_final_academic_background = 27;
+  string father_occupation = 28;
+  string mother_name = 29;
+  string mother_id_number = 30;
+  string mother_birth_date = 31;
+  string mother_final_academic_background = 32;
+  string mother_occupation = 33;
+  string guardian_name = 34;
+  string guardian_id_number = 35;
+  string guardian_birth_date = 36;
+  string guardian_final_academic_background = 37;
+  string guardian_occupation = 38;
+}
+
+message BulkCreateRequest {
+  repeated BulkCreateRequestData data = 1;
+}
+
+message BulkCreateResponseData {
+  string name = 1;
+  int64 nim_number = 2;
+  string password = 3;
+}
+
+message BulkCreateResponse {
+  Meta meta = 1;
+  repeated BulkCreateResponseData data = 2;
+}
+
+service PmbStudentHandler {
+  rpc BulkCreate(BulkCreateRequest) returns (BulkCreateResponse) {}
+}
+

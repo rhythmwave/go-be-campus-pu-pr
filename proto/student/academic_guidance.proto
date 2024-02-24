@@ -1,0 +1,77 @@
+syntax = "proto3";
+package student_academic_guidance;
+option go_package = "handlers/student/academic_guidance";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetDetailRequest {
+  string semester_id = 1;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string semester_id = 2;
+  string lecturer_id = 3;
+  string lecturer_name = 4;
+  string lecturer_front_title = 5;
+  string lecturer_back_degree = 6;
+  string decision_number = 7;
+  string decision_date = 8;
+  uint32 total_student = 9;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message GetSessionListRequest {
+  string academic_guidance_id = 1;
+}
+
+message GetSessionListResponseDataFile {
+  string id = 1;
+  string title = 2;
+  string file_url = 3;
+  string file_path = 4;
+  string file_path_type = 5;
+}
+
+message GetSessionListResponseDataStudent {
+  string id = 1;
+  string name = 2;
+  int64 nim_number = 3;
+}
+
+message GetSessionListResponseData {
+  string id = 1;
+  string academic_guidance_id = 2;
+  string subject = 3;
+  string session_date = 4;
+  string summary = 5;
+  repeated GetSessionListResponseDataFile files = 6;
+  repeated GetSessionListResponseDataStudent students = 7;
+}
+
+message GetSessionListResponse {
+  Meta meta = 1;
+  repeated GetSessionListResponseData data = 2;
+}
+
+service StudentAcademicGuidanceHandler {
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc GetSessionList(GetSessionListRequest) returns (GetSessionListResponse) {}
+}

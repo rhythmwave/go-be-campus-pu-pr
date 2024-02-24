@@ -1,0 +1,80 @@
+syntax = "proto3";
+package lecturer_general;
+option go_package = "handlers/lecturer/general";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetSemesterSummaryRequest {}
+
+message GetSemesterSummaryResponseData {
+  string study_plan_approval_start_date = 1;
+  string study_plan_approval_end_date = 2;
+  uint32 academic_guidance_total_student = 3;
+  uint32 total_class = 4;
+  string school_year = 5;
+  string semester_type = 6;
+  string grading_start_date = 7;
+  string grading_end_date = 8;
+  string semester_id = 9;
+}
+
+message GetSemesterSummaryResponse {
+  Meta meta = 1;
+  GetSemesterSummaryResponseData data = 2;
+}
+
+message GetProfileRequest {}
+
+message GetProfileResponseData {
+  string id	= 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+  string front_title = 4;
+  string back_degree = 5;
+  string study_program_id	= 6;
+  string study_program_name	= 7;
+  string birth_date =  8;
+  uint32 birth_regency_id =  9;
+  string birth_regency_name =  10;
+  uint32 birth_country_id =  11;
+  string birth_country_name =  12;
+  string sex = 13;
+  string religion = 14;
+  string address = 15;
+  uint32 regency_id =  16;
+  string regency_name =  17;
+  uint32 country_id =  18;
+  string country_name = 19;
+  string postal_code = 20;
+  string phone_number = 21;
+  string fax = 22;
+  string mobile_phone_number = 23;
+  string office_phone_number = 24;
+  string academic_position = 25;
+  string employment_status = 26;
+  string status = 27;
+}
+
+message GetProfileResponse {
+  Meta meta = 1;
+  GetProfileResponseData data = 2;
+}
+
+service LecturerGeneralHandler {
+  rpc GetSemesterSummary(GetSemesterSummaryRequest) returns (GetSemesterSummaryResponse) {}
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {}
+}
+

@@ -1,0 +1,337 @@
+syntax = "proto3";
+package student_general;
+option go_package = "handlers/student/general";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetSemesterSummaryRequest {}
+
+message GetSemesterSummaryResponseData {
+  string status = 1;
+  string semester_id = 2;
+  string semester_school_year = 3;
+  string semester_type = 4;
+  string study_program_id = 5;
+  string study_program_name = 6;
+  bool has_paid = 7;
+  string academic_guidance_lecturer_id = 8;
+  string academic_guidance_lecturer_name = 9;
+  string academic_guidance_lecturer_front_title = 10;
+  string academic_guidance_lecturer_back_degree = 11;
+  uint32 maximum_credit = 12;
+  string study_plan_input_start_date	= 13;
+  string study_plan_input_end_date	= 14;
+  string study_plan_approval_start_date	= 15;
+  string study_plan_approval_end_date	= 16;
+  uint32 total_mandatory_credit_taken = 17;
+  uint32 total_optional_credit_taken = 18;
+  double gpa = 19;
+}
+
+message GetSemesterSummaryResponse {
+  Meta meta = 1;
+  GetSemesterSummaryResponseData data = 2;
+}
+
+message GetProfileRequest {}
+
+message GetProfileResponseData {
+  string id	= 1;
+  string profile_photo_path = 2;
+  string profile_photo_path_type = 3;
+  string profile_photo_url = 4;
+  string name = 5;
+  string sex = 6;
+  uint32 birth_province_id = 7;
+  string birth_province_name = 8;
+  uint32 birth_regency_id = 9;
+  string birth_regency_name = 10;
+  string birth_date = 11;
+  string blood_type = 12;
+  double height = 13;
+  double weight = 14;
+  bool is_color_blind = 15;
+  bool use_glasses = 16;
+  bool has_complete_teeth = 17;
+  string study_program_id = 18;
+  string study_program_name = 19;
+  string dikti_study_program_type = 20;
+  string study_level_short_name = 21;
+  string admittance_semester = 22;
+  uint32 student_force = 23;
+  string admittance_test_number = 24;
+  string college_entrance_type = 25;
+  string admittance_date = 26;
+  string admittance_status = 27;
+  string npwp_number = 28;
+  string nisn_number = 29;
+  string religion = 30;
+  string marital_status = 31;
+  string nationality = 32;
+  uint32 province_id = 33;
+  string province_name = 34;
+  uint32 regency_id = 35;
+  string regency_name = 36;
+  uint32 district_id = 37;
+  string district_name = 38;
+  uint32 village_id = 39;
+  string village_name = 40;
+  string rt = 41;
+  string rw = 42;
+  string postal_code = 43;
+  string address = 44;
+  string phone_number = 45;
+  string mobile_phone_number = 46;
+  string email = 47;
+  string transportation_mean = 48;
+  bool is_kps_recipient = 49;
+  string fund_source = 50;
+  bool is_scholarship_grantee = 51;
+  uint32 total_brother = 52;
+  uint32 total_sister = 53;
+  string work_type = 54;
+  string work_place = 55;
+  string work_address = 56;
+  string assurance_number = 57;
+  string hobby = 58;
+}
+
+message GetProfileResponse {
+  Meta meta = 1;
+  GetProfileResponseData data = 2;
+}
+
+message UpdateProfileRequest {
+  string profile_photo_path = 1;
+  string profile_photo_path_type = 2;
+  string sex = 3;
+  uint32 birth_regency_id = 4;
+  string blood_type = 5;
+  double height = 6;
+  double weight = 7;
+  bool is_color_blind = 8;
+  bool use_glasses = 9;
+  bool has_complete_teeth = 10;
+  string id_number = 11;
+  string npwp_number = 12;
+  string nisn_number = 13;
+  string religion = 14;
+  string marital_status = 15;
+  string nationality = 16;
+  uint32 village_id = 17;
+  string rt = 18;
+  string rw = 19;
+  string postal_code = 20;
+  string address = 21;
+  string phone_number = 22;
+  string mobile_phone_number = 23;
+  string email = 24;
+  string transportation_mean = 25;
+  bool is_kps_recipient = 26;
+  string fund_source = 27;
+  bool is_scholarship_grantee = 28;
+  uint32 total_brother = 29;
+  uint32 total_sister = 30;
+  string work_type = 31;
+  string work_place = 32;
+  string work_address = 33;
+  string assurance_number = 34;
+  string hobby = 35;
+}
+
+message UpdateProfileResponseData {}
+
+message UpdateProfileResponse {
+  Meta meta = 1;
+  UpdateProfileResponseData data = 2;
+}
+
+message GetParentProfileRequest {}
+
+message GetParentProfileResponseData {
+  string father_id_number = 1;
+  string father_name = 2;
+  string father_birth_date = 3;
+  string father_death_date = 4;
+  string father_final_academic_background = 5;
+  string father_occupation = 6;
+  string mother_id_number = 7;
+  string mother_name = 8;
+  string mother_birth_date = 9;
+  string mother_death_date = 10;
+  string mother_final_academic_background = 11;
+  string mother_occupation = 12;
+  string parent_religion = 13;
+  string parent_nationality = 14;
+  string parent_address = 15;
+  string father_work_address = 16;
+  uint32 parent_province_id = 17;
+  string parent_province_name = 18;
+  uint32 parent_regency_id = 19;
+  string parent_regency_name = 20;
+  string parent_postal_code = 21;
+  string parent_phone_number = 22;
+  string parent_email = 23;
+  bool is_financially_capable = 24;
+  double parent_income = 25;
+  uint32 total_dependent = 26;
+  string guardian_name = 27;
+  string guardian_birth_date = 28;
+  string guardian_death_date = 29;
+  string guardian_address = 30;
+  uint32 guardian_province_id = 31;
+  string guardian_province_name = 32;
+  uint32 guardian_regency_id = 33;
+  string guardian_regency_name = 34;
+  string guardian_postal_code	= 35;
+  string guardian_phone_number = 36;
+  string guardian_email = 37;
+  string guardian_final_academic_background = 38;
+  string guardian_occupation = 39;
+  }
+
+message GetParentProfileResponse {
+  Meta meta = 1;
+  GetParentProfileResponseData data = 2;
+}
+
+  message UpdateParentProfileRequest {
+    string father_id_number = 1;
+    string father_name = 2;
+    string father_birth_date = 3;
+    string father_death_date = 4;
+    string father_final_academic_background = 5;
+    string father_occupation = 6;
+    string mother_id_number = 7;
+    string mother_name = 8;
+    string mother_birth_date = 9;
+    string mother_death_date = 10;
+    string mother_final_academic_background = 11;
+    string mother_occupation = 12;
+    string parent_religion = 13;
+    string parent_nationality = 14;
+    string parent_address = 15;
+    string father_work_address = 16;
+    uint32 parent_regency_id = 17;
+    string parent_postal_code = 18;
+    string parent_phone_number = 19;
+    string parent_email = 20;
+    bool is_financially_capable = 21;
+    double parent_income = 22;
+    uint32 total_dependent = 23;
+    string guardian_name = 24;
+    string guardian_birth_date = 25;
+    string guardian_death_date = 26;
+    string guardian_address = 27;
+    uint32 guardian_regency_id = 28;
+    string guardian_postal_code	= 29;
+    string guardian_phone_number = 30;
+    string guardian_email = 31;
+    string guardian_final_academic_background = 32;
+    string guardian_occupation = 33;
+  }
+
+message UpdateParentProfileResponseData {}
+
+message UpdateParentProfileResponse {
+  Meta meta = 1;
+  UpdateParentProfileResponseData data = 2;
+}
+
+message GetSchoolProfileRequest {}
+
+message GetSchoolProfileResponseDataPreHighSchoolHistory {
+  string id = 1;
+  string level = 2;
+  string name = 3;
+  string graduation_year = 4;
+}
+
+message GetSchoolProfileResponseData {
+  string school_enrollment_year = 1; 
+  string school_graduation_year = 2;	
+  string school_enrollment_class = 3; 
+  string school_major = 4; 
+  string school_type = 5; 
+  string school_name = 6; 
+  uint32 school_province_id = 7; 
+  string school_province_name = 8; 
+  string school_address = 9; 
+  string school_certificate_number = 10; 
+  string school_certificate_date = 11; 
+  string school_status = 12; 
+  string school_accreditation = 13; 
+  double school_final_exam_score = 14; 
+  double school_mathematics_final_exam_score = 15; 
+  double school_indonesian_final_exam_score = 16; 
+  double school_english_final_exam_score = 17; 
+  double school_mathematics_report_score = 18; 
+  double school_indonesian_report_score = 19; 
+  double school_english_report_score = 20; 
+  repeated GetSchoolProfileResponseDataPreHighSchoolHistory pre_high_school_histories = 21; 
+}
+
+message GetSchoolProfileResponse {
+  Meta meta = 1;
+  GetSchoolProfileResponseData data = 2;
+}
+
+message UpdateSchoolProfileRequestPreHighSchoolHistory {
+  string level = 1;
+  string name = 2;
+  string graduation_year = 3;
+}
+
+message UpdateSchoolProfileRequest {
+  string school_enrollment_year = 1;
+  string school_graduation_year = 2;
+  string school_enrollment_class = 3;
+  string school_major = 4;
+  string school_type = 5;
+  string school_name = 6;
+  uint32 school_province_id = 7;
+  string school_address = 8;
+  string school_certificate_number = 9;
+  string school_certificate_date = 10;
+  string school_status = 11;
+  string school_accreditation = 12;
+  double school_final_exam_score = 13;
+  double school_mathematics_final_exam_score = 14;
+  double school_indonesian_final_exam_score = 15;
+  double school_english_final_exam_score = 16;
+  double school_mathematics_report_score = 17;
+  double school_indonesian_report_score = 18;
+  double school_english_report_score = 19;
+  repeated UpdateSchoolProfileRequestPreHighSchoolHistory pre_high_school_histories = 20;
+}
+
+message UpdateSchoolProfileResponseData {}
+
+message UpdateSchoolProfileResponse {
+  Meta meta = 1;
+  UpdateSchoolProfileResponseData data = 2;
+}
+
+service StudentGeneralHandler {
+  rpc GetSemesterSummary(GetSemesterSummaryRequest) returns (GetSemesterSummaryResponse) {}
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {}
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {}
+  rpc GetParentProfile(GetParentProfileRequest) returns (GetParentProfileResponse) {}
+  rpc UpdateParentProfile(UpdateParentProfileRequest) returns (UpdateParentProfileResponse) {}
+  rpc GetSchoolProfile(GetSchoolProfileRequest) returns (GetSchoolProfileResponse) {}
+  rpc UpdateSchoolProfile(UpdateSchoolProfileRequest) returns (UpdateSchoolProfileResponse) {}
+}
+

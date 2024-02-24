@@ -1,0 +1,74 @@
+syntax = "proto3";
+package admin_shared_file;
+option go_package = "handlers/admin/shared_file";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string is_approved = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string lecturer_id = 2;
+  string lecturer_name = 3;
+  string lecturer_front_title = 4;
+  string lecturer_back_degree = 5;
+  string title = 6;
+  string file_path = 7;
+  string file_path_type = 8;
+  string file_url = 9;
+  string remarks = 10;
+  string created_at = 11;
+  bool is_approved = 12;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message ApproveRequest {
+  string id = 1;
+}
+
+message ApproveResponseData {}
+
+message ApproveResponse {
+  Meta meta = 1;
+  ApproveResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service AdminSharedFileHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc Approve(ApproveRequest) returns (ApproveResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}

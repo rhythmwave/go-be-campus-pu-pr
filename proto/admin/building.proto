@@ -1,0 +1,110 @@
+syntax = "proto3";
+package admin_building;
+option go_package = "handlers/admin/building";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string level = 2;
+  string faculty_id = 3;
+  string faculty_name = 4;
+  string major_id = 5;
+  string major_name = 6;
+  string code = 7;
+  string name = 8;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string level = 2;
+  string faculty_id = 3;
+  string faculty_name = 4;
+  string major_id = 5;
+  string major_name = 6;
+  string code = 7;
+  string name = 8;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequest {
+  string faculty_id = 1;
+  string major_id = 2;
+  string code = 3;
+  string name = 4;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string faculty_id = 2;
+  string major_id = 3;
+  string code = 4;
+  string name = 5;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service AdminBuildingHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+

@@ -1,0 +1,66 @@
+syntax = "proto3";
+package admin_transcript;
+option go_package = "handlers/admin/transcript";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetDetailRequest {
+  string student_id = 1;
+}
+
+message GetDetailResponseDataSemesterSubject {
+  string subject_code = 1;
+  string subject_name = 2;
+  string subject_english_name = 3;
+  uint32 theory_credit = 4;
+  uint32 practicum_credit = 5;
+  string grade_code = 6;
+}
+
+message GetDetailResponseDataSemester {
+  uint32 semester_package = 1;
+  repeated GetDetailResponseDataSemesterSubject subjects = 2;
+}
+
+message GetDetailResponseData {
+  int64 nim_number = 1;
+  string name = 2;
+  string birth_regency_name = 3;
+  string birth_date = 4;
+  string graduation_date = 5;
+  string diploma_number = 6;
+  string study_program_name = 7;
+  string study_level_name = 8;
+  string study_level_short_name = 9;
+  uint32 total_credit = 10;
+  double gpa = 11;
+  string graduation_predicate = 12;
+  uint32 theory_credit = 13;
+  uint32 practicum_credit = 14;
+  string thesis_title = 15;
+  string thesis_english_title = 16;
+  repeated GetDetailResponseDataSemester semesters = 17;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+service AdminTranscriptHandler {
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+}
+

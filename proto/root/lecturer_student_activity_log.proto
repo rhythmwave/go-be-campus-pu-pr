@@ -1,0 +1,52 @@
+syntax = "proto3";
+package root_lecturer_student_activity_log;
+option go_package = "handlers/root/lecturer_student_activity_log";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  uint32 year = 4;
+  uint32 month = 5;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string user_type = 2;
+  string user_id = 3;
+  string user_name = 4;
+  string user_username = 5;
+  string module = 6;
+  string action = 7;
+  string ip_address = 8;
+  string user_agent = 9;
+  double execution_time = 10;
+  double memory_usage = 11;
+  string created_at = 12;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+service RootLecturerStudentActivityLogHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+}
+

@@ -1,0 +1,84 @@
+syntax = "proto3";
+package admin_study_plan;
+option go_package = "handlers/admin/study_plan";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message BulkCreateRequest {
+  string semester_id = 1;
+  repeated string student_ids = 2;
+  repeated string class_ids = 3;
+  bool is_thesis = 4;
+}
+
+message BulkCreateResponseData {}
+
+message BulkCreateResponse {
+  Meta meta = 1;
+  BulkCreateResponseData data = 2;
+}
+
+message BulkApproveRequest {
+  repeated string study_plan_ids = 1;
+  bool is_approved = 2;
+}
+
+message BulkApproveResponseData {}
+
+message BulkApproveResponse {
+  Meta meta = 1;
+  BulkApproveResponseData data = 2;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string student_id = 4;
+  string semester_id = 5;
+}
+
+message GetListResponseData {
+  string semester_id = 1;
+  uint32 semester_start_year = 2;
+  string school_year = 3;
+  string semester_type = 4;
+  uint32 total_mandatory_credit = 5;
+  uint32 total_optional_credit = 6;
+  double grade_point = 7;
+  string student_id = 8;
+  int64 student_nim_number = 9;
+  string student_name = 10;
+  string study_program_id = 11;
+  string study_program_name = 12;
+  string dikti_study_program_code = 13;
+  string dikti_study_program_type = 14;
+  string study_level_short_name = 15;
+  bool is_thesis = 16;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+service AdminStudyPlanHandler {
+  rpc BulkCreate(BulkCreateRequest) returns (BulkCreateResponse) {}
+  rpc BulkApprove(BulkApproveRequest) returns (BulkApproveResponse) {}
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+}
+

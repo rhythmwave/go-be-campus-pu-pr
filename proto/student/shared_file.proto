@@ -1,0 +1,46 @@
+syntax = "proto3";
+package student_shared_file;
+option go_package = "handlers/student/shared_file";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string lecturer_id = 2;
+  string lecturer_name = 3;
+  string lecturer_front_title = 4;
+  string lecturer_back_degree = 5;
+  string title = 6;
+  string file_url = 7;
+  string remarks = 8;
+  string created_at = 9;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+service StudentSharedFileHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+}

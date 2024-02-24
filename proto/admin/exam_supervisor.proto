@@ -1,0 +1,209 @@
+syntax = "proto3";
+package admin_exam_supervisor;
+option go_package = "handlers/admin/exam_supervisor";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id	= 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+  string front_title = 4;
+  string back_degree = 5;
+  string study_program_id	= 6;
+  string study_program_name	= 7;
+  string id_number = 8;
+  string birth_date =  9;
+  uint32 birth_regency_id =  10;
+  string birth_regency_name =  11;
+  uint32 birth_country_id =  12;
+  string birth_country_name =  13;
+  string sex = 14;
+  string blood_type = 15;
+  string religion = 16;
+  string marital_status = 17;
+  string address = 18;
+  uint32 regency_id =  19;
+  string regency_name =  20;
+  uint32 country_id =  21;
+  string country_name = 22;
+  string postal_code = 23;
+  string phone_number = 24;
+  string fax = 25;
+  string mobile_phone_number = 26;
+  string office_phone_number = 27;
+  string employee_type = 28;
+  string employee_status = 29;
+  string sk_cpns_number = 30;
+  string sk_cpns_date =  31;
+  string tmt_cpns_date =  32;
+  string cpns_category = 33;
+  uint32 cpns_duration_month =  34;
+  string pre_position_date =  35;
+  string sk_pns_number = 36;
+  string sk_pns_date =  37;
+  string tmt_pns_date =  38;
+  string pns_category = 39;
+  string pns_oath_date =  40;
+  string join_date =  41;
+  string end_date =  42;
+  string taspen_number = 43;
+  string former_instance = 44;
+  string remarks = 45;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequest {
+  string id_national_lecturer = 1;
+  string name = 2;
+  string front_title = 3;
+  string back_degree = 4;
+  string study_program_id	= 5;
+  string id_number = 6;
+  string birth_date =  7;
+  uint32 birth_regency_id =  8;
+  string sex = 9;
+  string blood_type = 10;
+  string religion = 11;
+  string marital_status = 12;
+  string address = 13;
+  uint32 regency_id =  14;
+  string postal_code = 15;
+  string phone_number = 16;
+  string fax = 17;
+  string mobile_phone_number = 18;
+  string office_phone_number = 19;
+  string employee_type = 20;
+  string employee_status = 21;
+  string sk_cpns_number = 22;
+  string sk_cpns_date =  23;
+  string tmt_cpns_date =  24;
+  string cpns_category = 25;
+  uint32 cpns_duration_month =  26;
+  string pre_position_date =  27;
+  string sk_pns_number = 28;
+  string sk_pns_date =  29;
+  string tmt_pns_date =  30;
+  string pns_category = 31;
+  string pns_oath_date =  32;
+  string join_date =  33;
+  string end_date =  34;
+  string taspen_number = 35;
+  string former_instance = 36;
+  string remarks = 37;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+  string front_title = 4;
+  string back_degree = 5;
+  string study_program_id	= 6;
+  string id_number = 7;
+  string birth_date =  8;
+  uint32 birth_regency_id =  9;
+  string sex = 10;
+  string blood_type = 11;
+  string religion = 12;
+  string marital_status = 13;
+  string address = 14;
+  uint32 regency_id =  15;
+  string postal_code = 16;
+  string phone_number = 17;
+  string fax = 18;
+  string mobile_phone_number = 19;
+  string office_phone_number = 20;
+  string employee_type = 21;
+  string employee_status = 22;
+  string sk_cpns_number = 23;
+  string sk_cpns_date =  24;
+  string tmt_cpns_date =  25;
+  string cpns_category = 26;
+  uint32 cpns_duration_month =  27;
+  string pre_position_date =  28;
+  string sk_pns_number = 29;
+  string sk_pns_date =  30;
+  string tmt_pns_date =  31;
+  string pns_category = 32;
+  string pns_oath_date =  33;
+  string join_date =  34;
+  string end_date =  35;
+  string taspen_number = 36;
+  string former_instance = 37;
+  string remarks = 38;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service AdminExamSupervisorHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+

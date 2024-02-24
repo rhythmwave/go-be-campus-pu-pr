@@ -1,0 +1,151 @@
+syntax = "proto3";
+package admin_student_leave;
+option go_package = "handlers/admin/student_leave";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequestsRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  string is_approved = 5;
+}
+
+message GetListRequestsResponseData {
+  string id = 1;
+  int64 nim_number = 2;
+  string name = 3;
+  string dikti_study_program_code = 4;
+  string study_program_name = 5;
+  string study_level_short_name = 6;
+  string dikti_study_program_type = 7;
+  string start_date = 8;
+  uint32 total_leave_duration_semester = 9;
+  string permit_number = 10;
+  string purpose = 11;
+  string remarks = 12;
+  bool is_approved = 13;
+}
+
+message GetListRequestsResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListRequestsResponseData data = 3;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  string semester_id = 5;
+}
+
+message GetListResponseData {
+  string id = 1;
+  int64 nim_number = 2;
+  string name = 3;
+  string dikti_study_program_code = 4;
+  string study_program_name = 5;
+  string study_level_short_name = 6;
+  string dikti_study_program_type = 7;
+  string semester_school_year = 8;
+  string semester_type = 9;
+  string permit_number = 10;
+  string purpose = 11;
+  string remarks = 12;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message CreateRequest {
+  string student_id = 1;
+  uint32 total_leave_duration_semester = 2;
+  string start_date = 3;
+  string permit_number = 4;
+  string purpose = 5;
+  string remarks = 6;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string permit_number = 2;
+  string purpose = 3;
+  string remarks = 4;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message ApproveRequest {
+  string id = 1;
+  bool is_approved = 2;
+}
+
+message ApproveResponseData {}
+
+message ApproveResponse {
+  Meta meta = 1;
+  ApproveResponseData data = 2;
+}
+
+message EndRequest {
+  string id = 1;
+}
+
+message EndResponseData {}
+
+message EndResponse {
+  Meta meta = 1;
+  EndResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service AdminStudentLeaveHandler {
+  rpc GetListRequests(GetListRequestsRequest) returns (GetListRequestsResponse) {}
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Approve(ApproveRequest) returns (ApproveResponse) {}
+  rpc End(EndRequest) returns (EndResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}

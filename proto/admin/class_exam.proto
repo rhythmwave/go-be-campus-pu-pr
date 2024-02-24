@@ -1,0 +1,73 @@
+syntax = "proto3";
+package admin_class_exam;
+option go_package = "handlers/admin/class_exam";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string class_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string title = 2;
+  string abstraction = 3;
+  string file_url = 4;
+  string lecturer_id = 5;
+  string lecturer_name = 6;
+  string lecturer_front_title = 7;
+  string lecturer_back_degree = 8;
+  string start_time = 9;
+  string end_time = 10;
+  uint32 total_submission = 11;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetSubmissionRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string class_exam_id = 4;
+}
+
+message GetSubmissionResponseData {
+  string id = 1;
+  string student_id = 2;
+  int64 nim_number = 3;
+  string name = 4;
+  string study_program_name = 5;
+  string file_url = 6;
+  double point = 7;
+}
+
+message GetSubmissionResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetSubmissionResponseData data = 3;
+}
+
+service AdminClassExamHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetSubmission(GetSubmissionRequest) returns (GetSubmissionResponse) {}
+}

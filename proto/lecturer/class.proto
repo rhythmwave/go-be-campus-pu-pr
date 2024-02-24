@@ -1,0 +1,214 @@
+syntax = "proto3";
+package lecturer_class;
+option go_package = "handlers/lecturer/class";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetActiveSemesterClassListRequest {
+  string study_program_id = 1;
+}
+
+message GetActiveSemesterClassListResponseDataClassLecturer {
+  string name = 1;
+  string front_title = 2;
+  string back_degree = 3;
+}
+
+message GetActiveSemesterClassListResponseDataClass {
+  string id = 1;
+  string name = 2;
+  string subject_code = 3;
+  string subject_name = 4;
+  bool subject_is_mandatory = 5;
+  uint32 subject_theory_credit = 6;
+  uint32 subject_practicum_credit = 7;
+  uint32 subject_field_practicum_credit = 8;
+  uint32 maximum_participant = 9;
+  repeated GetActiveSemesterClassListResponseDataClassLecturer lecturers = 10;
+}
+
+message GetActiveSemesterClassListResponseData {
+  uint32 semester_package = 1;
+  repeated GetActiveSemesterClassListResponseDataClass classes = 2;
+}
+
+message GetActiveSemesterClassListResponse {
+  Meta meta = 1;
+  repeated GetActiveSemesterClassListResponseData data = 2;
+}
+
+message GetAssignedClassRequest {
+  string semester_id = 1;
+}
+
+message GetAssignedClassResponseData {
+  string id = 1;
+  string name = 2;
+  string subject_code = 3;
+  string subject_name = 4;
+  uint32 theory_credit = 5;
+  uint32 practicum_credit = 6;
+  uint32 field_practicum_credit = 7;
+  bool is_grading_responsible = 8;
+  string study_program_id = 9;
+  string study_program_name = 10;
+}
+
+message GetAssignedClassResponse {
+  Meta meta = 1;
+  repeated GetAssignedClassResponseData data = 2;
+}
+
+message GetAssignedScheduleRequest {
+  string class_id = 1;
+}
+
+message GetAssignedScheduleResponseDataSingleDaySchedule {
+  string date = 1;
+  uint32 start_time = 2;
+  uint32 end_time = 3;
+  string room_name = 4;
+}
+
+message GetAssignedScheduleResponseData {
+  string study_program_name = 1;
+  string subject_code = 2;
+  string subject_name = 3;
+  uint32 semester_package = 4;
+  uint32 theory_credit = 5;
+  uint32 practicum_credit = 6;
+  uint32 field_practicum_credit = 7;
+  double subject_minimum_passing_grade_point = 8;
+  bool subject_is_mandatory = 9;
+  uint32 maximum_participant = 10;
+  repeated string prerequisite_subjects = 11;
+  repeated GetAssignedScheduleResponseDataSingleDaySchedule single_day_schedules = 12;
+  string midterm_exam_date = 13;
+  uint32 midterm_start_time = 14;
+  uint32 midterm_end_time = 15;
+  string midterm_room_name = 16;
+  string endterm_exam_date = 17;
+  uint32 endterm_start_time = 18;
+  uint32 endterm_end_time = 19;
+  string endterm_room_name = 20;
+}
+
+message GetAssignedScheduleResponse {
+  Meta meta = 1;
+  GetAssignedScheduleResponseData data = 2;
+}
+
+message GetDetailRequest {
+  string class_id = 1;
+}
+
+message GetDetailResponseDataGradeComponent {
+  string id = 1;
+  string name = 2;
+  double percentage = 3;
+}
+
+message GetDetailResponseDataStudentGrade {
+  string class_grade_component_id = 1;
+  string class_grade_component_name = 2;
+  double initial_grade = 3;
+  double final_grade = 4;
+}
+
+message GetDetailResponseDataStudent {
+  string id = 1;
+  int64 nim_number = 2;
+  string name = 3;
+  double grade_point = 4;
+  string grade_code = 5;
+  repeated GetDetailResponseDataStudentGrade grades = 6;
+}
+
+message GetDetailResponseDataGradeType {
+  string id = 1;
+  string study_level_id = 2;
+  string study_level_short_name = 3;
+  string code = 4;
+  double grade_point = 5;
+  double minimum_grade = 6;
+  double maximum_grade = 7;
+  string grade_category = 8;
+  double grade_point_category = 9;
+  string label = 10;
+  string english_label = 11;
+  string start_date = 12;
+  string end_date = 13;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string name = 2;
+  string study_program_id = 3;
+  string study_program_name = 4;
+  string dikti_study_program_type = 5;
+  string study_level_short_name = 6;
+  string semester_id = 7;
+  string semester_school_year = 8;
+  string semester_type = 9;
+  string grading_start_date = 10;
+  string grading_end_date = 11;
+  string curriculum_id = 12;
+  string curriculum_name = 13;
+  string curriculum_year = 14;
+  string subject_id = 15;
+  string subject_code = 16;
+  string subject_name = 17;
+  bool is_grading_responsible = 18;
+  repeated GetDetailResponseDataGradeComponent grade_components = 19;
+  repeated GetDetailResponseDataStudent students = 20;
+  repeated GetDetailResponseDataGradeType grade_types = 21;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message BulkGradeStudentClassRequestStudentGrade {
+  string class_grade_component_id = 1;
+  double initial_grade = 2;
+}
+
+message BulkGradeStudentClassRequestStudent {
+  string student_id = 1;
+  repeated BulkGradeStudentClassRequestStudentGrade grades = 2;
+}
+
+message BulkGradeStudentClassRequest {
+  string class_id = 1;
+  repeated BulkGradeStudentClassRequestStudent students = 2;
+}
+
+message BulkGradeStudentClassResponseData {}
+
+message BulkGradeStudentClassResponse {
+  Meta meta = 1;
+  BulkGradeStudentClassResponseData data = 2;
+}
+
+
+service LecturerClassHandler {
+  rpc GetActiveSemesterClassList(GetActiveSemesterClassListRequest) returns (GetActiveSemesterClassListResponse) {}
+  rpc GetAssignedClass(GetAssignedClassRequest) returns (GetAssignedClassResponse) {}
+  rpc GetAssignedSchedule(GetAssignedScheduleRequest) returns (GetAssignedScheduleResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc BulkGradeStudentClass(BulkGradeStudentClassRequest) returns (BulkGradeStudentClassResponse) {}
+}

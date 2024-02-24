@@ -1,0 +1,236 @@
+syntax = "proto3";
+package admin_semester;
+option go_package = "handlers/admin/semester";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string study_program_id = 3;
+  string excluding_semester_id = 4;
+}
+
+message GetListResponseDataCurriculum {
+  string study_program_id = 1;
+  string study_program_name = 2;
+  string curriculum_id = 3;
+  string curriculum_name = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  uint32 semester_start_year = 2;
+  string school_year = 3;
+  string semester_type = 4;
+  bool is_active = 5;
+  string start_date = 6;
+  string end_date = 7;
+  string midterm_start_date = 8;
+  string midterm_end_date = 9;
+  string endterm_start_date = 10;
+  string endterm_end_date = 11;
+  repeated GetListResponseDataCurriculum curriculums = 12;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseDataCurriculum {
+  string study_program_id = 1;
+  string study_program_name = 2;
+  string curriculum_id = 3;
+  string curriculum_name = 4;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  uint32 semester_start_year = 2;
+  string school_year = 3;
+  string semester_type = 4;
+  bool is_active = 5;
+  string start_date = 6;
+  string end_date = 7;
+  string study_plan_input_start_date = 8;
+  string study_plan_input_end_date = 9;
+  string study_plan_approval_start_date = 10;
+  string study_plan_approval_end_date = 11;
+  string reference_semester_id = 12;
+  uint32 reference_semester_start_year = 13;
+  string reference_school_year = 14;
+  string reference_semester_type = 15;
+  bool check_minimum_gpa = 16;
+  bool check_passed_credit = 17;
+  uint32 default_credit = 18;
+  repeated GetDetailResponseDataCurriculum curriculums = 19;
+  string midterm_start_date = 20;
+  string midterm_end_date = 21;
+  string endterm_start_date = 22;
+  string endterm_end_date = 23;
+  string grading_start_date = 24;
+  string grading_end_date = 25;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message GetActiveRequest {}
+
+message GetActiveResponseDataCurriculum {
+  string study_program_id = 1;
+  string study_program_name = 2;
+  string curriculum_id = 3;
+  string curriculum_name = 4;
+}
+
+message GetActiveResponseData {
+  string id = 1;
+  uint32 semester_start_year = 2;
+  string school_year = 3;
+  string semester_type = 4;
+  bool is_active = 5;
+  string start_date = 6;
+  string end_date = 7;
+  string study_plan_input_start_date = 8;
+  string study_plan_input_end_date = 9;
+  string study_plan_approval_start_date = 10;
+  string study_plan_approval_end_date = 11;
+  string reference_semester_id = 12;
+  uint32 reference_semester_start_year = 13;
+  string reference_school_year = 14;
+  string reference_semester_type = 15;
+  bool check_minimum_gpa = 16;
+  bool check_passed_credit = 17;
+  uint32 default_credit = 18;
+  repeated GetActiveResponseDataCurriculum curriculums = 19;
+  string midterm_start_date = 20;
+  string midterm_end_date = 21;
+  string endterm_start_date = 22;
+  string endterm_end_date = 23;
+  string grading_start_date = 24;
+  string grading_end_date = 25;
+}
+
+message GetActiveResponse {
+  Meta meta = 1;
+  GetActiveResponseData data = 2;
+}
+
+message CreateRequestCurriculum {
+  string curriculum_id = 1;
+}
+
+message CreateRequest {
+  uint32 semester_start_year = 1;
+  string semester_type = 2;
+  string start_date = 3;
+  string end_date = 4;
+  string study_plan_input_start_date = 5;
+  string study_plan_input_end_date = 6;
+  string study_plan_approval_start_date = 7;
+  string study_plan_approval_end_date = 8;
+  string reference_semester_id = 9;
+  bool check_minimum_gpa = 10;
+  bool check_passed_credit = 11;
+  uint32 default_credit = 12;
+  repeated CreateRequestCurriculum curriculums = 13;
+  string midterm_start_date = 14;
+  string midterm_end_date = 15;
+  string endterm_start_date = 16;
+  string endterm_end_date = 17;
+  string grading_start_date = 18;
+  string grading_end_date = 19;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  uint32 semester_start_year = 2;
+  string semester_type = 3;
+  string start_date = 4;
+  string end_date = 5;
+  string study_plan_input_start_date = 6;
+  string study_plan_input_end_date = 7;
+  string study_plan_approval_start_date = 8;
+  string study_plan_approval_end_date = 9;
+  string reference_semester_id = 10;
+  bool check_minimum_gpa = 11;
+  bool check_passed_credit = 12;
+  uint32 default_credit = 13;
+  repeated CreateRequestCurriculum curriculums = 14;
+  string midterm_start_date = 15;
+  string midterm_end_date = 16;
+  string endterm_start_date = 17;
+  string endterm_end_date = 18;
+  string grading_start_date = 19;
+  string grading_end_date = 20;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message UpdateActivationRequest {
+  string id = 1;
+  bool is_active = 2;
+}
+
+message UpdateActivationResponseData {}
+
+message UpdateActivationResponse {
+  Meta meta = 1;
+  UpdateActivationResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service AdminSemesterHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc GetActive(GetActiveRequest) returns (GetActiveResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc UpdateActivation(UpdateActivationRequest) returns (UpdateActivationResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+

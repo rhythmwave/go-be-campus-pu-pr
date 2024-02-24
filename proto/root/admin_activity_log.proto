@@ -1,0 +1,51 @@
+syntax = "proto3";
+package root_admin_activity_log;
+option go_package = "handlers/root/admin_activity_log";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  uint32 year = 4;
+  uint32 month = 5;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string admin_id = 2;
+  string admin_name = 3;
+  string admin_username = 4;
+  string module = 5;
+  string action = 6;
+  string ip_address = 7;
+  string user_agent = 8;
+  double execution_time = 9;
+  double memory_usage = 10;
+  string created_at = 11;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+service RootAdminActivityLogHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+}
+

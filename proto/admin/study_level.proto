@@ -1,0 +1,63 @@
+syntax = "proto3";
+package admin_study_level;
+option go_package = "handlers/admin/study_level";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string name = 2;
+  string short_name = 3;
+  string kkni_qualification = 4;
+  string acceptance_requirement = 5;
+  string further_education_level = 6;
+  string professional_status = 7;
+  string course_language = 8;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message UpdateSkpiRequest {
+  string id = 1;
+  string kkni_qualification = 2;
+  string acceptance_requirement = 3;
+  string further_education_level = 4;
+  string professional_status = 5;
+  string course_language = 6;
+}
+
+message UpdateSkpiResponseData {}
+
+message UpdateSkpiResponse {
+  Meta meta = 1;
+  UpdateSkpiResponseData data = 2;
+}
+
+service AdminStudyLevelHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc UpdateSkpi(UpdateSkpiRequest) returns (UpdateSkpiResponse) {}
+}
+

@@ -1,0 +1,149 @@
+syntax = "proto3";
+package student_student_skpi;
+option go_package = "handlers/student/student_skpi";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetDetailRequest {}
+
+message GetDetailResponseDataAchievement {
+  string id = 1;
+  string name = 2;
+  uint32 year = 3;
+}
+
+message GetDetailResponseDataOrganization {
+  string id = 1;
+  string name = 2;
+  string position = 3;
+  uint32 service_length = 4;
+}
+
+message GetDetailResponseDataCertificate {
+  string id = 1;
+  string name = 2;
+}
+
+message GetDetailResponseDataCharacterBuilding {
+  string id = 1;
+  string name = 2;
+}
+
+message GetDetailResponseDataInternship {
+  string id = 1;
+  string name = 2;
+}
+
+message GetDetailResponseDataLanguage {
+  string id = 1;
+  string name = 2;
+  string score = 3;
+  string date = 4;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string student_id = 2;
+  int64 student_nim_number = 3;
+  string student_name = 4;
+  string student_study_program_id = 5;
+  string student_study_program_name = 6;
+  string student_dikti_study_program_code = 7;
+  string skpi_number = 8;
+  bool is_approved = 9;
+  string achievement_path = 10;
+  string achievement_path_type = 11;
+  string achievement_url = 12;
+  string organization_path = 13;
+  string organization_path_type = 14;
+  string organization_url = 15;
+  string certificate_path = 16;
+  string certificate_path_type = 17;
+  string certificate_url = 18;
+  string language_path = 19;
+  string language_path_type = 20;
+  string language_url = 21;
+  repeated GetDetailResponseDataAchievement achievements = 22;
+  repeated GetDetailResponseDataOrganization organizations = 23;
+  repeated GetDetailResponseDataCertificate certificates = 24;
+  repeated GetDetailResponseDataCharacterBuilding character_buildings = 25;
+  repeated GetDetailResponseDataInternship internships = 26;
+  repeated GetDetailResponseDataLanguage languages = 27;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message UpsertRequestDataAchievement {
+  string name = 1;
+  uint32 year = 2;
+}
+
+message UpsertRequestDataOrganization {
+  string name = 1;
+  string position = 2;
+  uint32 service_length = 3;
+}
+
+message UpsertRequestDataCertificate {
+  string name = 1;
+}
+
+message UpsertRequestDataCharacterBuilding {
+  string name = 1;
+}
+
+message UpsertRequestDataInternship {
+  string name = 1;
+}
+
+message UpsertRequestDataLanguage {
+  string name = 1;
+  string score = 2;
+  string date = 3;
+}
+
+message UpsertRequest {
+  string achievement_path = 1;
+  string achievement_path_type = 2;
+  string organization_path = 3;
+  string organization_path_type = 4;
+  string certificate_path = 5;
+  string certificate_path_type = 6;
+  string language_path = 7;
+  string language_path_type = 8;
+  repeated UpsertRequestDataAchievement achievements = 9;
+  repeated UpsertRequestDataOrganization organizations = 10;
+  repeated UpsertRequestDataCertificate certificates = 11;
+  repeated UpsertRequestDataCharacterBuilding character_buildings = 12;
+  repeated UpsertRequestDataInternship internships = 13;
+  repeated UpsertRequestDataLanguage languages = 14;
+}
+
+message UpsertResponseData {}
+
+message UpsertResponse {
+  Meta meta = 1;
+  UpsertResponseData data = 2;
+}
+
+service StudentStudentSkpiHandler {
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Upsert(UpsertRequest) returns (UpsertResponse) {}
+}
+

@@ -1,0 +1,242 @@
+syntax = "proto3";
+package admin_report;
+option go_package = "handlers/admin/report";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message StudentStatusRequest {
+  string semester_id = 1;
+}
+
+message StudentStatusResponseDataStatus {
+  string status = 1;
+  uint32 total = 2;
+}
+
+message StudentStatusResponseData {
+  string study_program_id = 1;
+  string study_program_name = 2;
+  string dikti_study_program_code = 3;
+  string dikti_study_program_type = 4;
+  string study_level_short_name = 5;
+  repeated StudentStatusResponseDataStatus statuses = 6;
+}
+
+message StudentStatusResponse {
+  Meta meta = 1;
+  repeated StudentStatusResponseData data = 3;
+}
+
+message StudentClassGradeRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  string semester_id = 5;
+}
+
+message StudentClassGradeResponseDataGrade {
+  string grade_code = 1;
+  uint32 total = 2;
+}
+
+message StudentClassGradeResponseData {
+  string subject_id = 1;
+  string subject_name = 2;
+  repeated StudentClassGradeResponseDataGrade grades = 3;
+}
+
+message StudentClassGradeResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated StudentClassGradeResponseData data = 3;
+}
+
+message StudentProvinceRequest {
+  string study_program_id = 1;
+  uint32 student_force_from = 2;
+  uint32 student_force_to = 3;
+}
+
+message StudentProvinceResponseDataStudentForce {
+  uint32 student_force = 1;
+  uint32 total = 2;
+}
+
+message StudentProvinceResponseData {
+  uint32 province_id = 1;
+  string province_name = 2;
+  repeated StudentProvinceResponseDataStudentForce student_forces = 3;
+}
+
+message StudentProvinceResponse {
+  Meta meta = 1;
+  repeated StudentProvinceResponseData data = 2;
+}
+
+message StudentSchoolProvinceRequest {
+  string study_program_id = 1;
+  uint32 student_force_from = 2;
+  uint32 student_force_to = 3;
+}
+
+message StudentSchoolProvinceResponseDataStudentForce {
+  uint32 student_force = 1;
+  uint32 total = 2;
+}
+
+message StudentSchoolProvinceResponseData {
+  uint32 province_id = 1;
+  string province_name = 2;
+  repeated StudentSchoolProvinceResponseDataStudentForce student_forces = 3;
+}
+
+message StudentSchoolProvinceResponse {
+  Meta meta = 1;
+  repeated StudentSchoolProvinceResponseData data = 2;
+}
+
+message GpaDistributionRequest {
+  string study_program_id = 1;
+  uint32 graduation_year_from = 2;
+  uint32 graduation_year_to = 3;
+}
+
+message GpaDistributionResponseData {
+  string graduation_school_year = 1;
+  uint32 total_less_than_25 = 2;
+  double percentage_less_than_25 = 3;
+  uint32 total_between_25_and_30 = 4;
+  double percentage_between_25_and_30 = 5;
+  uint32 total_more_than_30 = 6;
+  double percentage_more_than_30 = 7;
+  uint32 total_graduates = 8;
+  double average_gpa = 9;
+}
+
+message GpaDistributionResponse {
+  Meta meta = 1;
+  repeated GpaDistributionResponseData data = 2;
+}
+
+message StudyDurationDistributionRequest {
+  string study_level_id = 1;
+  string study_program_id = 2;
+  uint32 graduation_year_from = 3;
+  uint32 graduation_year_to = 4;
+}
+
+message StudyDurationDistributionResponseData {
+  string graduation_school_year = 1;
+  uint32 total_less_than_3 = 2;
+  double percentage_less_than_3 = 3;
+  uint32 total_between_3_and_35 = 4;
+  double percentage_between_3_and_35 = 5;
+  uint32 total_between_35_and_4 = 6;
+  double percentage_between_35_and_4 = 7;
+  uint32 total_more_than_4 = 8;
+  double percentage_more_than_4 = 9;
+  uint32 total_graduates = 10;
+  double average_study_duration = 11;
+}
+
+message StudyDurationDistributionResponse {
+  Meta meta = 1;
+  repeated StudyDurationDistributionResponseData data = 2;
+}
+
+message ThesisDurationDistributionRequest {
+  string study_level_id = 1;
+  string study_program_id = 2;
+  uint32 graduation_year_from = 3;
+  uint32 graduation_year_to = 4;
+}
+
+message ThesisDurationDistributionResponseData {
+  string graduation_school_year = 1;
+  uint32 total_less_than_1 = 2;
+  double percentage_less_than_1 = 3;
+  uint32 total_between_1_and_2 = 4;
+  double percentage_between_1_and_2 = 5;
+  uint32 total_more_than_2 = 6;
+  double percentage_more_than_2 = 7;
+  uint32 total_graduates = 8;
+  double average_thesis_duration = 9;
+}
+
+message ThesisDurationDistributionResponse {
+  Meta meta = 1;
+  repeated ThesisDurationDistributionResponseData data = 2;
+}
+
+message StudentStatusSummaryRequest {
+  string study_program_id = 1;
+  uint32 student_force_from = 2;
+  uint32 student_force_to = 3;
+}
+
+message StudentStatusSummaryResponseData {
+  uint32 student_force = 1;
+  uint32 total_active = 2;
+  double percentage_active = 3;
+  uint32 total_out = 4;
+  double percentage_out = 5;
+  uint32 total_graduate = 6;
+  double percentage_graduate = 7;
+  uint32 total_student = 8;
+  uint32 total_thesis_student = 9;
+}
+
+message StudentStatusSummaryResponse {
+  Meta meta = 1;
+  repeated StudentStatusSummaryResponseData data = 2;
+}
+
+message SubjectSummaryRequest {
+  string study_program_id = 1;
+  uint32 semester_start_year = 2;
+}
+
+message SubjectSummaryResponseDataGrade {
+  string grade_code = 1;
+  uint32 total = 2;
+}
+
+message SubjectSummaryResponseData {
+  string subject_id = 1;
+  string subject_name = 2;
+  uint32 total_participant = 3;
+  uint32 total_repeat_participant = 4;
+  uint32 total_class = 5;
+  repeated SubjectSummaryResponseDataGrade grades = 6;
+}
+
+message SubjectSummaryResponse {
+  Meta meta = 1;
+  repeated SubjectSummaryResponseData data = 2;
+}
+
+service AdminReportHandler {
+  rpc StudentStatus(StudentStatusRequest) returns (StudentStatusResponse) {}
+  rpc StudentClassGrade(StudentClassGradeRequest) returns (StudentClassGradeResponse) {}
+  rpc StudentProvince(StudentProvinceRequest) returns (StudentProvinceResponse) {}
+  rpc StudentSchoolProvince(StudentSchoolProvinceRequest) returns (StudentSchoolProvinceResponse) {}
+  rpc GpaDistribution(GpaDistributionRequest) returns (GpaDistributionResponse) {}
+  rpc StudyDurationDistribution(StudyDurationDistributionRequest) returns (StudyDurationDistributionResponse) {}
+  rpc ThesisDurationDistribution(ThesisDurationDistributionRequest) returns (ThesisDurationDistributionResponse) {}
+  rpc StudentStatusSummary(StudentStatusSummaryRequest) returns (StudentStatusSummaryResponse) {}
+  rpc SubjectSummary(SubjectSummaryRequest) returns (SubjectSummaryResponse) {}
+}

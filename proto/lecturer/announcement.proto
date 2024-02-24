@@ -1,0 +1,46 @@
+syntax = "proto3";
+package lecturer_announcement;
+option go_package = "handlers/lecturer/announcement";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string type = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string type = 2;
+  string title = 3;
+  string announcement_date = 4;
+  string file_url = 5;
+  string file_title = 6;
+  string content = 7;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+service LecturerAnnouncementHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+}
+

@@ -1,0 +1,238 @@
+syntax = "proto3";
+package admin_lecture;
+option go_package = "handlers/admin/lecture";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string class_id = 3;
+  string has_actual_lecture = 4;
+  string is_exam = 5;
+  string exam_type = 6;
+  string semester_id = 7;
+}
+
+message GetListResponseDataExamSupervisor {
+  string id = 1;
+  string name = 2;
+  string front_title = 3;
+  string back_degree = 4;
+  string exam_supervisor_role_id = 5;
+  string exam_supervisor_role_name = 6;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string lecture_plan_date = 2;
+  uint32 lecture_plan_day_of_week = 3;
+  uint32 lecture_plan_start_time = 4;
+  uint32 lecture_plan_end_time = 5;
+  string lecture_actual_date = 6;
+  uint32 lecture_actual_day_of_week = 7;
+  uint32 lecture_actual_start_time = 8;
+  uint32 lecture_actual_end_time = 9;
+  string lecturer_id = 10;
+  string lecturer_name = 11;
+  string foreign_lecturer_name = 12;
+  string foreign_lecturer_source_instance = 13;
+  bool is_original_lecturer = 14;
+  string class_id = 15;
+  string class_name = 16;
+  string room_id = 17;
+  string room_name = 18;
+  bool is_midterm_exam = 19;
+  bool is_endterm_exam = 20;
+  bool is_theory_exam = 21;
+  bool is_practicum_exam = 22;
+  bool is_field_practicum_exam = 23;
+  repeated GetListResponseDataExamSupervisor exam_supervisors = 24;
+  string subject_name = 25;
+  string subject_code = 26;
+  uint32 total_participant = 27;
+  string building_id = 28;
+  string building_name = 29;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message BulkCreateRequestLecturePlanExamSupervisor {
+  string exam_supervisor_id = 1;
+  string exam_supervisor_role_id = 2;
+}
+
+message BulkCreateRequestLecturePlan {
+  string lecture_plan_date = 1;
+  uint32 lecture_plan_start_time = 2;
+  uint32 lecture_plan_end_time = 3;
+  string room_id = 4;
+  string lecturer_id = 5;
+  bool is_exam = 6;
+  bool is_theory_exam = 7;
+  bool is_practicum_exam = 8;
+  bool is_field_practicum_exam = 9;
+  bool is_midterm_exam = 10;
+  bool is_endterm_exam = 11;
+  repeated BulkCreateRequestLecturePlanExamSupervisor exam_supervisors = 12;
+}
+
+message BulkCreateRequest {
+  string class_id = 1;
+  repeated BulkCreateRequestLecturePlan lecture_plans = 2;
+}
+
+message BulkCreateResponseData {}
+
+message BulkCreateResponse {
+  Meta meta = 1;
+  BulkCreateResponseData data = 2;
+}
+
+message UpdateRequestParticipant {
+  string student_id = 1;
+  bool is_attend = 2;
+  bool is_sick = 3;
+  bool is_leave = 4;
+  bool is_awol = 5;
+}
+
+message UpdateRequestExamSupervisor {
+  string exam_supervisor_id = 1;
+  string exam_supervisor_role_id = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string lecturer_id = 2;
+  string foreign_lecturer_name = 3;
+  string foreign_lecturer_source_instance = 4;
+  string lecture_plan_date = 5;
+  uint32 lecture_plan_start_time = 6;
+  uint32 lecture_plan_end_time = 7;
+  string lecture_theme = 8;
+  string lecture_subject = 9;
+  string remarks = 10;
+  repeated UpdateRequestParticipant participants = 11;
+  string room_id = 12;
+  repeated UpdateRequestExamSupervisor exam_supervisors = 13;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+message ResetParticipationRequest {
+  string id = 1;
+}
+
+message ResetParticipationResponseData {}
+
+message ResetParticipationResponse {
+  Meta meta = 1;
+  ResetParticipationResponseData data = 2;
+}
+
+message GetStudentParticipationRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string student_id = 3;
+  string class_id = 4;
+}
+
+message GetStudentParticipationResponseData {
+  string id = 1;
+  string lecture_plan_date = 2;
+  uint32 lecture_plan_day_of_week = 3;
+  uint32 lecture_plan_start_time = 4;
+  uint32 lecture_plan_end_time = 5;
+  string lecture_actual_date = 6;
+  uint32 lecture_actual_day_of_week = 7;
+  uint32 lecture_actual_start_time = 8;
+  uint32 lecture_actual_end_time = 9;
+  bool is_attend = 10;
+  bool is_sick = 11;
+  bool is_leave = 12;
+  bool is_awol = 13;
+}
+
+message GetStudentParticipationResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetStudentParticipationResponseData data = 3;
+}
+
+message GetCalendarRequest {
+  uint32 year = 1;
+  uint32 month = 2;
+  string room_id = 3;
+  string lecturer_id = 4;
+  string class_id = 5;
+}
+
+message GetCalendarResponseDataLecture {
+  uint32 lecture_plan_start_time = 1;
+  uint32 lecture_plan_end_time = 2;
+  string class_id = 3;
+  string class_name = 4;
+  string room_id = 5;
+  string room_name = 6;
+  string lecturer_id = 7;
+  string lecturer_name = 8;
+  string lecturer_front_title = 9;
+  string lecturer_back_degree = 10;
+  string foreign_lecturer_name = 11;
+  string foreign_lecturer_source_instance = 12;
+}
+
+message GetCalendarResponseData {
+  string date = 1;
+  repeated GetCalendarResponseDataLecture lectures = 2;
+}
+
+message GetCalendarResponse {
+  Meta meta = 1;
+  repeated GetCalendarResponseData data = 2;
+}
+
+service AdminLectureHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc BulkCreate(BulkCreateRequest) returns (BulkCreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  rpc ResetParticipation(ResetParticipationRequest) returns (ResetParticipationResponse) {}
+  rpc GetStudentParticipation(GetStudentParticipationRequest) returns (GetStudentParticipationResponse) {}
+  rpc GetCalendar(GetCalendarRequest) returns (GetCalendarResponse) {}
+}
+

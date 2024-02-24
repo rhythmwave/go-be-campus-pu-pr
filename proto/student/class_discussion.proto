@@ -1,0 +1,98 @@
+syntax = "proto3";
+package student_class_discussion;
+option go_package = "handlers/student/class_discussion";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string class_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string title = 2;
+  string abstraction = 3;
+  string lecturer_id = 4;
+  string lecturer_name = 5;
+  string lecturer_front_title = 6;
+  string lecturer_back_degree = 7;
+  uint32 total_comment = 8;
+  string last_comment = 9;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetCommentRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string class_discussion_id = 3;
+}
+
+message GetCommentResponseData {
+  string id = 1;
+  string student_id = 2;
+  int64 student_nim_number = 3;
+  string student_name = 4;
+  string lecturer_id = 5;
+  string lecturer_name = 6;
+  string lecturer_front_title = 7;
+  string lecturer_back_degree = 8;
+  string comment = 9;
+  bool self_comment = 10;
+}
+
+message GetCommentResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetCommentResponseData data = 3;
+}
+
+message CreateCommentRequest {
+  string class_discussion_id = 1;
+  string comment = 2;
+}
+
+message CreateCommentResponseData {}
+
+message CreateCommentResponse {
+  Meta meta = 1;
+  CreateCommentResponseData data = 2;
+}
+
+message DeleteCommentRequest {
+  string id = 1;
+}
+
+message DeleteCommentResponseData {}
+
+message DeleteCommentResponse {
+  Meta meta = 1;
+  DeleteCommentResponseData data = 2;
+}
+
+service StudentClassDiscussionHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetComment(GetCommentRequest) returns (GetCommentResponse) {}
+  rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse) {}
+  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse) {}
+}

@@ -1,0 +1,84 @@
+syntax = "proto3";
+package admin_yudicium;
+option go_package = "handlers/admin/yudicium";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message ApplyRequest {
+  string student_id = 1;
+  string application_date = 2;
+  bool with_thesis = 3;
+}
+
+message ApplyResponseData {}
+
+message ApplyResponse {
+  Meta meta = 1;
+  ApplyResponseData data = 2;
+}
+
+message GetListStudentRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  int64 nim_number_from = 5;
+  int64 nim_number_to = 6;
+  string semester_id = 7;
+  uint32 student_force_from = 8;
+  uint32 student_force_to = 9;
+}
+
+message GetListStudentResponseData {
+  string id = 1;
+  int64 nim_number = 2;
+  string name = 3;
+  string dikti_study_program_code = 4;
+  uint32 total_credit = 5;
+  double gpa = 6;
+  string status = 7;
+  string application_date = 8;
+  bool done_yudicium = 9;
+  string study_program_name = 10;
+  string study_level_short_name = 11;
+  string dikti_study_program_type = 12;
+}
+
+message GetListStudentResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListStudentResponseData data = 3;
+}
+
+message DoRequest {
+  string yudicium_session_id = 1;
+  string yudicium_number = 2;
+  string yudicium_date = 3;
+  repeated string student_ids = 4;
+}
+
+message DoResponseData {}
+
+message DoResponse {
+  Meta meta = 1;
+  DoResponseData data = 2;
+}
+
+service AdminYudiciumHandler {
+  rpc Apply(ApplyRequest) returns (ApplyResponse) {}
+  rpc GetListStudent(GetListStudentRequest) returns (GetListStudentResponse) {}
+  rpc Do(DoRequest) returns (DoResponse) {}
+}

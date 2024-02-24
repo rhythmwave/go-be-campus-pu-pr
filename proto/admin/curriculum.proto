@@ -1,0 +1,167 @@
+syntax = "proto3";
+package admin_curriculum;
+option go_package = "handlers/admin/curriculum";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string study_program_id = 2;
+  string name = 3;
+  string year = 4;
+  uint32 ideal_study_period = 5;
+  uint32 maximum_study_period = 6;
+  bool is_active = 7;
+  string study_program_name = 8;
+  string dikti_study_program_code = 9;
+  uint32 total_subject = 10;
+  uint32 total_subject_with_prerequisite = 11;
+  uint32 total_subject_with_equivalency = 12;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string study_program_id = 2;
+  string name = 3;
+  string year = 4;
+  string rector_decision_number = 5;
+  string rector_decision_date = 6;
+  string aggreeing_party = 7;
+  string aggreement_date = 8;
+  uint32 ideal_study_period = 9;
+  uint32 maximum_study_period = 10;
+  string remarks = 11;
+  string study_program_name = 12;
+  string study_level_short_name = 13;
+  string dikti_study_program_type = 14;
+  bool is_active = 15;
+  string final_score_determinant = 16;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message GetActiveByStudyProgramIdRequest {
+  string study_program_id = 1;
+}
+
+message GetActiveByStudyProgramIdResponseData {
+  string id = 1;
+  string study_program_id = 2;
+  string name = 3;
+  string year = 4;
+  string rector_decision_number = 5;
+  string rector_decision_date = 6;
+  string aggreeing_party = 7;
+  string aggreement_date = 8;
+  uint32 ideal_study_period = 9;
+  uint32 maximum_study_period = 10;
+  string remarks = 11;
+  string study_program_name = 12;
+  string study_level_short_name = 13;
+  string dikti_study_program_type = 14;
+  bool is_active = 15;
+  string final_score_determinant = 16;
+}
+
+message GetActiveByStudyProgramIdResponse {
+  Meta meta = 1;
+  GetActiveByStudyProgramIdResponseData data = 2;
+}
+
+message CreateRequest {
+  string study_program_id = 1;
+  string name = 2;
+  string year = 3;
+  string rector_decision_number = 4;
+  string rector_decision_date = 5;
+  string aggreeing_party = 6;
+  string aggreement_date = 7;
+  uint32 ideal_study_period = 8;
+  uint32 maximum_study_period = 9;
+  string remarks = 10;
+  bool is_active = 11;
+  string final_score_determinant = 12;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string name = 2;
+  string year = 3;
+  string rector_decision_number = 4;
+  string rector_decision_date = 5;
+  string aggreeing_party = 6;
+  string aggreement_date = 7;
+  uint32 ideal_study_period = 8;
+  uint32 maximum_study_period = 9;
+  string remarks = 10;
+  bool is_active = 11;
+  string final_score_determinant = 12;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service AdminCurriculumHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc GetActiveByStudyProgramId(GetActiveByStudyProgramIdRequest) returns (GetActiveByStudyProgramIdResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+

@@ -1,0 +1,43 @@
+syntax = "proto3";
+package admin_dikti_study_program;
+option go_package = "handlers/admin/dikti_study_program";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string code = 2;
+  string name = 3;
+  string study_level_short_name = 4;
+  string study_level_name = 5;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+service AdminDiktiStudyProgramHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+}
+

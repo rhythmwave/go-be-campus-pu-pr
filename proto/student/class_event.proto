@@ -1,0 +1,52 @@
+syntax = "proto3";
+package student_class_event;
+option go_package = "handlers/student/class_event";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string class_id = 4;
+  string frequency = 5;
+  bool future_event_only = 6;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string title = 2;
+  string frequency = 3;
+  string event_time = 4;
+  string lecturer_id = 5;
+  string lecturer_name = 6;
+  string lecturer_front_title = 7;
+  string lecturer_back_degree = 8;
+  string remarks = 9;
+  bool is_active = 10;
+  string created_at = 11;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+
+service StudentClassEventHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+}

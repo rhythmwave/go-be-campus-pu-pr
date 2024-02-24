@@ -1,0 +1,150 @@
+syntax = "proto3";
+package root_major;
+option go_package = "handlers/root/major";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string faculty_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string faculty_name = 2;
+  string name = 3;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string faculty_id = 2;
+  string faculty_name = 3;
+  string name = 4;
+  string short_name = 5;
+  string english_name = 6;
+  string english_short_name = 7;
+  string address = 8;
+  string phone_number = 9;
+  string fax = 10;
+  string email = 11;
+  string contact_person = 12;
+  double experiment_building_area = 13;
+  double lecture_hall_area = 14;
+  uint32 lecture_hall_count = 15;
+  double laboratorium_area = 16;
+  uint32 laboratorium_count = 17;
+  double permanent_lecturer_room_area = 18;
+  double administration_room_area = 19;
+  uint32 book_count = 20;
+  uint32 book_copy_count = 21;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+
+message CreateRequest {
+  string faculty_id = 1;
+  string name = 2;
+  string short_name = 3;
+  string english_name = 4;
+  string english_short_name = 5;
+  string address = 6;
+  string phone_number = 7;
+  string fax = 8;
+  string email = 9;
+  string contact_person = 10;
+  double experiment_building_area = 11;
+  double lecture_hall_area = 12;
+  uint32 lecture_hall_count = 13;
+  double laboratorium_area = 14;
+  uint32 laboratorium_count = 15;
+  double permanent_lecturer_room_area = 16;
+  double administration_room_area = 17;
+  uint32 book_count = 18;
+  uint32 book_copy_count = 19;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string faculty_id = 2;
+  string name = 3;
+  string short_name = 4;
+  string english_name = 5;
+  string english_short_name = 6;
+  string address = 7;
+  string phone_number = 8;
+  string fax = 9;
+  string email = 10;
+  string contact_person = 11;
+  double experiment_building_area = 12;
+  double lecture_hall_area = 13;
+  uint32 lecture_hall_count = 14;
+  double laboratorium_area = 15;
+  uint32 laboratorium_count = 16;
+  double permanent_lecturer_room_area = 17;
+  double administration_room_area = 18;
+  uint32 book_count = 19;
+  uint32 book_copy_count = 20;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service RootMajorHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+

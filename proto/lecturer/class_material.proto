@@ -1,0 +1,110 @@
+syntax = "proto3";
+package lecturer_class_material;
+option go_package = "handlers/lecturer/class_material";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string class_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string title = 2;
+  string abstraction = 3;
+  string file_path = 4;
+  string file_path_type = 5;
+  string file_url = 6;
+  string lecturer_id = 7;
+  string lecturer_name = 8;
+  string lecturer_front_title = 9;
+  string lecturer_back_degree = 10;
+  bool is_active = 11;
+  string created_at = 12;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message CreateRequest {
+  string class_id = 1;
+  string title = 2;
+  string abstraction = 3;
+  string file_path = 4;
+  string file_path_type = 5;
+  bool is_active = 6;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string title = 2;
+  string abstraction = 3;
+  string file_path = 4;
+  string file_path_type = 5;
+  bool is_active = 6;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message BulkUpdateActivationRequest {
+  repeated string ids = 1;
+  bool is_active = 2;
+}
+
+message BulkUpdateActivationResponseData {}
+
+message BulkUpdateActivationResponse {
+  Meta meta = 1;
+  BulkUpdateActivationResponseData data = 2;
+}
+
+
+message BulkDeleteRequest {
+  repeated string ids = 1;
+}
+
+message BulkDeleteResponseData {}
+
+message BulkDeleteResponse {
+  Meta meta = 1;
+  BulkDeleteResponseData data = 2;
+}
+
+service LecturerClassMaterialHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc BulkUpdateActivation(BulkUpdateActivationRequest) returns (BulkUpdateActivationResponse) {}
+  rpc BulkDelete(BulkDeleteRequest) returns (BulkDeleteResponse) {}
+}

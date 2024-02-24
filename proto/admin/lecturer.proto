@@ -1,0 +1,332 @@
+syntax = "proto3";
+package admin_lecturer;
+option go_package = "handlers/admin/lecturer";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  string id_national_lecturer = 5;
+  string employment_status = 6;
+  string academic_guidance_semester_id = 7;
+  string status = 8;
+  string has_authentication = 9;
+  string class_id = 10;
+  string exclude_lecture_date = 11;
+  uint32 exclude_start_time = 12;
+  uint32 exclude_end_time = 13;
+  string force_include_lecture_id = 14;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string name = 2;
+  string phone_number = 3;
+  string mobile_phone_number = 4;
+  string office_phone_number = 5;
+  string id_national_lecturer = 6;
+  string front_title = 7;
+  string back_degree = 8;
+  string dikti_study_program_code = 9;
+  string study_program_name = 10;
+  string employment_status = 11;
+  string status = 12;
+  string authentication_id = 13;
+  bool authentication_is_active = 14;
+  string authentication_suspension_remarks = 15;
+  uint32 academic_guidance_total_student = 16;
+  string academic_guidance_id = 17;
+  string academic_guidance_decision_number = 18;
+  string academic_guidance_decision_date = 19;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id	= 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+  string front_title = 4;
+  string back_degree = 5;
+  string study_program_id	= 6;
+  string study_program_name	= 7;
+  string id_number = 8;
+  string birth_date =  9;
+  uint32 birth_regency_id =  10;
+  string birth_regency_name =  11;
+  uint32 birth_country_id =  12;
+  string birth_country_name =  13;
+  string id_employee = 14;
+  string stambuk = 15;
+  string sex = 16;
+  string blood_type = 17;
+  string religion = 18;
+  string marital_status = 19;
+  string address = 20;
+  uint32 regency_id =  21;
+  string regency_name =  22;
+  uint32 country_id =  23;
+  string country_name = 24;
+  string postal_code = 25;
+  string phone_number = 26;
+  string fax = 27;
+  string mobile_phone_number = 28;
+  string office_phone_number = 29;
+  string employee_type = 30;
+  string employee_status = 31;
+  string sk_cpns_number = 32;
+  string sk_cpns_date =  33;
+  string tmt_cpns_date =  34;
+  string cpns_category = 35;
+  uint32 cpns_duration_month =  36;
+  string pre_position_date =  37;
+  string sk_pns_number = 38;
+  string sk_pns_date =  39;
+  string tmt_pns_date =  40;
+  string pns_category = 41;
+  string pns_oath_date =  42;
+  string join_date =  43;
+  string end_date =  44;
+  string taspen_number = 45;
+  string former_instance = 46;
+  string remarks = 47;
+  string lecturer_number = 48;
+  string academic_position = 49;
+  string employment_status = 50;
+  string expertise = 51;
+  string highest_degree = 52;
+  string instance_code = 53;
+  string teaching_certificate_number = 54;
+  string teaching_permit_number = 55;
+  string status = 56;
+  string resign_semester = 57;
+  string expertise_group_id = 58;
+  string expertise_group_name = 59;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequest {
+  string id_national_lecturer = 1;
+  string name = 2;
+  string front_title = 3;
+  string back_degree = 4;
+  string study_program_id	= 5;
+  string id_number = 6;
+  string birth_date =  7;
+  uint32 birth_regency_id =  8;
+  string id_employee = 9;
+  string stambuk = 10;
+  string sex = 11;
+  string blood_type = 12;
+  string religion = 13;
+  string marital_status = 14;
+  string address = 15;
+  uint32 regency_id =  16;
+  string postal_code = 17;
+  string phone_number = 18;
+  string fax = 19;
+  string mobile_phone_number = 20;
+  string office_phone_number = 21;
+  string employee_type = 22;
+  string employee_status = 23;
+  string sk_cpns_number = 24;
+  string sk_cpns_date =  25;
+  string tmt_cpns_date =  26;
+  string cpns_category = 27;
+  uint32 cpns_duration_month =  28;
+  string pre_position_date =  29;
+  string sk_pns_number = 30;
+  string sk_pns_date =  31;
+  string tmt_pns_date =  32;
+  string pns_category = 33;
+  string pns_oath_date =  34;
+  string join_date =  35;
+  string end_date =  36;
+  string taspen_number = 37;
+  string former_instance = 38;
+  string remarks = 39;
+  string lecturer_number = 40;
+  string academic_position = 41;
+  string employment_status = 42;
+  string expertise = 43;
+  string highest_degree = 44;
+  string instance_code = 45;
+  string teaching_certificate_number = 46;
+  string teaching_permit_number = 47;
+  string status = 48;
+  string resign_semester = 49;
+  string expertise_group_id = 50;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+  string front_title = 4;
+  string back_degree = 5;
+  string study_program_id	= 6;
+  string id_number = 7;
+  string birth_date =  8;
+  uint32 birth_regency_id =  9;
+  string id_employee = 10;
+  string stambuk = 11;
+  string sex = 12;
+  string blood_type = 13;
+  string religion = 14;
+  string marital_status = 15;
+  string address = 16;
+  uint32 regency_id =  17;
+  string postal_code = 18;
+  string phone_number = 19;
+  string fax = 20;
+  string mobile_phone_number = 21;
+  string office_phone_number = 22;
+  string employee_type = 23;
+  string employee_status = 24;
+  string sk_cpns_number = 25;
+  string sk_cpns_date =  26;
+  string tmt_cpns_date =  27;
+  string cpns_category = 28;
+  uint32 cpns_duration_month =  29;
+  string pre_position_date =  30;
+  string sk_pns_number = 31;
+  string sk_pns_date =  32;
+  string tmt_pns_date =  33;
+  string pns_category = 34;
+  string pns_oath_date =  35;
+  string join_date =  36;
+  string end_date =  37;
+  string taspen_number = 38;
+  string former_instance = 39;
+  string remarks = 40;
+  string lecturer_number = 41;
+  string academic_position = 42;
+  string employment_status = 43;
+  string expertise = 44;
+  string highest_degree = 45;
+  string instance_code = 46;
+  string teaching_certificate_number = 47;
+  string teaching_permit_number = 48;
+  string status = 49;
+  string resign_semester = 50;
+  string expertise_group_id = 51;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+message GetScheduleRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  string id_national_lecturer = 5;
+  string semester_id = 6;
+}
+
+message GetScheduleResponseData {
+  string id = 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+  string front_title = 4;
+  string back_degree = 5;
+  string study_program_name = 6;
+  string subject_name = 7;
+  string class_name = 8;
+  uint32 total_subject_credit = 9;
+  string lecture_plan_date = 10;
+  uint32 start_time = 11;
+  uint32 end_time = 12;
+  string room_name = 13;
+  uint32 total_participant = 14;
+}
+
+message GetScheduleResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetScheduleResponseData data = 3;
+}
+
+message GetAssignedClassRequest {
+  string lecturer_id = 1;
+  string semester_id = 2;
+}
+
+message GetAssignedClassResponseData {
+  string id = 1;
+  string name = 2;
+  string subject_code = 3;
+  string subject_name = 4;
+  uint32 theory_credit = 5;
+  uint32 practicum_credit = 6;
+  uint32 field_practicum_credit = 7;
+  uint32 total_attendance = 8;
+  uint32 total_lecture_done = 9;
+  double attendance_percentage = 10;
+}
+
+message GetAssignedClassResponse {
+  Meta meta = 1;
+  repeated GetAssignedClassResponseData data = 2;
+}
+
+service AdminLecturerHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  rpc GetSchedule(GetScheduleRequest) returns (GetScheduleResponse) {}
+  rpc GetAssignedClass(GetAssignedClassRequest) returns (GetAssignedClassResponse) {}
+}
+

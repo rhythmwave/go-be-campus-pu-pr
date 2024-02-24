@@ -1,0 +1,654 @@
+syntax = "proto3";
+package admin_student;
+option go_package = "handlers/admin/student";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string study_program_id = 3;
+  uint32 student_force_from = 4;
+  uint32 student_force_to = 5;
+  int64 nim_number_from = 6;
+  int64 nim_number_to = 7;
+  string name = 8;
+  string address = 9;
+  string regency_id = 10;
+  repeated string status = 11;
+  bool get_academic_guidance = 12;
+  string has_authentication = 13;
+  string study_plan_semester_id = 14;
+  string study_plan_is_submitted = 15;
+  string study_plan_is_approved = 16;
+  string has_study_plan = 17;
+  string status_semester_id = 18;
+  string is_registered = 19;
+  string has_paid = 20;
+  string is_graduate_eligible = 21;
+  string is_thesis_eligible = 22;
+  string yudicium_session_id = 23;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string name = 2;
+  string sex = 3;
+  string marital_status = 4;
+  uint32 birth_regency_id = 5;
+  string birth_regency_name = 6;
+  string birth_date = 7;
+  string religion = 8;
+  string address = 9;
+  string rt = 10;
+  string rw = 11;
+  uint32 village_id = 12;
+  string village_name = 13;
+  uint32 district_id = 14;
+  string district_name = 15;
+  uint32 regency_id = 16;
+  string regency_name = 17;
+  uint32 province_id = 18;
+  string province_name = 19;
+  uint32 country_id = 20;
+  string country_name = 21;
+  string postal_code = 22;
+  string previous_address = 23;
+  string id_number = 24;
+  string npwp_number = 25;
+  string nisn_number = 26;
+  string residence_type = 27;
+  string transportation_mean = 28;
+  string kps_receiver = 29;
+  string phone_number = 30;
+  string mobile_phone_number = 31;
+  string email = 32;
+  string homepage = 33;
+  string work_type = 34;
+  string work_place = 35;
+  string nationality = 36;
+  string askes_number = 37;
+  uint32 total_brother = 38;
+  uint32 total_sister = 39;
+  string hobby = 40;
+  string experience = 41;
+  uint32 total_dependent = 42;
+  int64 nim_number = 43;
+  uint32 student_force = 44;
+  string admittance_semester = 45;
+  string study_program_id = 46;
+  string study_program_name = 47;
+  string curriculum_id = 48;
+  string curriculum_name = 49;
+  string admittance_test_number = 50;
+  string admittance_date = 51;
+  string admittance_status = 52;
+  uint32 total_transfer_credit = 53;
+  string previous_college = 54;
+  string previous_study_program = 55;
+  int64 previous_nim_number = 56;
+  string previous_nim_admittance_year = 57;
+  string status = 58;
+  bool is_foreign_student = 59;
+  string college_entrance_type = 60;
+  string class_time = 61;
+  string fund_source = 62;
+  bool is_scholarship_grantee = 63;
+  bool has_complete_requirement = 64;
+  string school_certificate_type = 65;
+  string school_graduation_year = 66;
+  string school_name = 67;
+  string school_accreditation = 68;
+  string school_address = 69;
+  string school_major = 70;
+  string school_certificate_number = 71;
+  string school_certificate_date = 72;
+  uint32 total_school_final_exam_subject = 73;
+  double school_final_exam_score = 74;
+  string guardian_name = 75;
+  string guardian_birth_date = 76;
+  string guardian_death_date = 77;
+  string guardian_address = 78;
+  uint32 guardian_regency_id = 79;
+  string guardian_regency_name = 80;
+  string guardian_postal_code = 81;
+  string guardian_phone_number = 82;
+  string guardian_email = 83;
+  string guardian_final_academic_background = 84;
+  string guardian_occupation = 85;
+  string father_id_number = 86;
+  string father_name = 87;
+  string father_birth_date = 88;
+  string father_death_date = 89;
+  string mother_id_number = 90;
+  string mother_name = 91;
+  string mother_birth_date = 92;
+  string mother_death_date = 93;
+  string parent_address = 94;
+  uint32 parent_regency_id = 95;
+  string parent_regency_name = 96;
+  string parent_postal_code = 97;
+  string parent_phone_number = 98;
+  string parent_email = 99;
+  string father_final_academic_background = 100;
+  string father_occupation = 101;
+  string mother_final_academic_background = 102;
+  string mother_occupation = 103;
+  double parent_income = 104;
+  bool is_financially_capable = 105;
+  string authentication_id = 106;
+  bool authentication_is_active = 107;
+  string authentication_suspension_remarks = 108;
+  string dikti_study_program_code = 109;
+  string academic_guidance_lecturer_id = 110;
+  string academic_guidance_lecturer_name = 111;
+  string academic_guidance_semester_id = 112;
+  string academic_guidance_semester_school_year = 113;
+  uint32 study_plan_total_mandatory_credit = 114;
+  uint32 study_plan_total_optional_credit = 115;
+  uint32 study_plan_maximum_credit = 116;
+  bool study_plan_is_approved = 117;
+  uint32 current_semester_package = 118;
+  string study_plan_id = 119;
+  uint32 total_study_plan = 120;
+  string status_semester_id = 121;
+  string status_semester_school_year = 122;
+  string status_semester_type = 123;
+  string status_date = 124;
+  string status_reference_number = 125;
+  string status_purpose = 126;
+  string status_remarks = 127;
+  double gpa = 128;
+  uint32 total_credit = 129;
+  bool transcript_is_archived = 130;
+  bool has_paid = 131;
+  string graduation_predicate = 132;
+  uint32 study_duration_month = 133;
+  uint32 thesis_duration_month = 134;
+  uint32 thesis_duration_semester = 135;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string name = 2;
+  string sex = 3;
+  string marital_status = 4;
+  uint32 birth_regency_id = 5;
+  string birth_regency_name = 6;
+  string birth_date = 7;
+  string religion = 8;
+  string address = 9;
+  string rt = 10;
+  string rw = 11;
+  uint32 village_id = 12;
+  string village_name = 13;
+  uint32 district_id = 14;
+  string district_name = 15;
+  uint32 regency_id = 16;
+  string regency_name = 17;
+  uint32 province_id = 18;
+  string province_name = 19;
+  uint32 country_id = 20;
+  string country_name = 21;
+  string postal_code = 22;
+  string previous_address = 23;
+  string id_number = 24;
+  string npwp_number = 25;
+  string nisn_number = 26;
+  string residence_type = 27;
+  string transportation_mean = 28;
+  string kps_receiver = 29;
+  string phone_number = 30;
+  string mobile_phone_number = 31;
+  string email = 32;
+  string homepage = 33;
+  string work_type = 34;
+  string work_place = 35;
+  string nationality = 36;
+  string askes_number = 37;
+  uint32 total_brother = 38;
+  uint32 total_sister = 39;
+  string hobby = 40;
+  string experience = 41;
+  uint32 total_dependent = 42;
+  int64 nim_number = 43;
+  uint32 student_force = 44;
+  string admittance_semester = 45;
+  string study_program_id = 46;
+  string study_program_name = 47;
+  string curriculum_id = 48;
+  string curriculum_name = 49;
+  string admittance_test_number = 50;
+  string admittance_date = 51;
+  string admittance_status = 52;
+  uint32 total_transfer_credit = 53;
+  string previous_college = 54;
+  string previous_study_program = 55;
+  int64 previous_nim_number = 56;
+  string previous_nim_admittance_year = 57;
+  string status = 58;
+  bool is_foreign_student = 59;
+  string college_entrance_type = 60;
+  string class_time = 61;
+  string fund_source = 62;
+  bool is_scholarship_grantee = 63;
+  bool has_complete_requirement = 64;
+  string school_certificate_type = 65;
+  string school_graduation_year = 66;
+  string school_name = 67;
+  string school_accreditation = 68;
+  string school_address = 69;
+  string school_major = 70;
+  string school_certificate_number = 71;
+  string school_certificate_date = 72;
+  uint32 total_school_final_exam_subject = 73;
+  double school_final_exam_score = 74;
+  string guardian_name = 75;
+  string guardian_birth_date = 76;
+  string guardian_death_date = 77;
+  string guardian_address = 78;
+  uint32 guardian_regency_id = 79;
+  string guardian_regency_name = 80;
+  string guardian_postal_code = 81;
+  string guardian_phone_number = 82;
+  string guardian_email = 83;
+  string guardian_final_academic_background = 84;
+  string guardian_occupation = 85;
+  string father_id_number = 86;
+  string father_name = 87;
+  string father_birth_date = 88;
+  string father_death_date = 89;
+  string mother_id_number = 90;
+  string mother_name = 91;
+  string mother_birth_date = 92;
+  string mother_death_date = 93;
+  string parent_address = 94;
+  uint32 parent_regency_id = 95;
+  string parent_regency_name = 96;
+  string parent_postal_code = 97;
+  string parent_phone_number = 98;
+  string parent_email = 99;
+  string father_final_academic_background = 100;
+  string father_occupation = 101;
+  string mother_final_academic_background = 102;
+  string mother_occupation = 103;
+  double parent_income = 104;
+  bool is_financially_capable = 105;
+  string authentication_id = 106;
+  bool authentication_is_active = 107;
+  string authentication_suspension_remarks = 108;
+  string dikti_study_program_code = 109;
+  string academic_guidance_lecturer_id = 110;
+  string academic_guidance_lecturer_name = 111;
+  string academic_guidance_semester_id = 112;
+  string academic_guidance_semester_school_year = 113;
+  uint32 study_plan_total_mandatory_credit = 114;
+  uint32 study_plan_total_optional_credit = 115;
+  uint32 study_plan_maximum_credit = 116;
+  bool study_plan_is_approved = 117;
+  uint32 current_semester_package = 118;
+  string study_plan_id = 119;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequest {
+  string name = 1;
+  string sex = 2;
+  string marital_status = 3;
+  uint32 birth_regency_id = 4;
+  string birth_date = 5;
+  string religion = 6;
+  string address = 7;
+  string rt = 8;
+  string rw = 9;
+  uint32 village_id = 10;
+  string postal_code = 11;
+  string previous_address = 12;
+  string id_number = 13;
+  string npwp_number = 14;
+  string nisn_number = 15;
+  string residence_type = 16;
+  string transportation_mean = 17;
+  string kps_receiver = 18;
+  string phone_number = 19;
+  string mobile_phone_number = 20;
+  string email = 21;
+  string homepage = 22;
+  string work_type = 23;
+  string work_place = 24;
+  string nationality = 25;
+  string askes_number = 26;
+  uint32 total_brother = 27;
+  uint32 total_sister = 28;
+  string hobby = 29;
+  string experience = 30;
+  uint32 total_dependent = 31;
+  int64 nim_number = 32;
+  uint32 student_force = 33;
+  string admittance_semester = 34;
+  string study_program_id = 35;
+  string curriculum_id = 36;
+  string admittance_test_number = 37;
+  string admittance_date = 38;
+  string admittance_status = 39;
+  uint32 total_transfer_credit = 40;
+  string previous_college = 41;
+  string previous_study_program = 42;
+  int64 previous_nim_number = 43;
+  string previous_nim_admittance_year = 44;
+  string status = 45;
+  bool is_foreign_student = 46;
+  string college_entrance_type = 47;
+  string class_time = 48;
+  string fund_source = 49;
+  bool is_scholarship_grantee = 50;
+  bool has_complete_requirement = 51;
+  string school_certificate_type = 52;
+  string school_graduation_year = 53;
+  string school_name = 54;
+  string school_accreditation = 55;
+  string school_address = 56;
+  string school_major = 57;
+  string school_certificate_number = 58;
+  string school_certificate_date = 59;
+  uint32 total_school_final_exam_subject = 60;
+  double school_final_exam_score = 61;
+  string guardian_name = 62;
+  string guardian_birth_date = 63;
+  string guardian_death_date = 64;
+  string guardian_address = 65;
+  uint32 guardian_regency_id = 66;
+  string guardian_postal_code = 67;
+  string guardian_phone_number = 68;
+  string guardian_email = 69;
+  string guardian_final_academic_background = 70;
+  string guardian_occupation = 71;
+  string father_id_number = 72;
+  string father_name = 73;
+  string father_birth_date = 74;
+  string father_death_date = 75;
+  string mother_id_number = 76;
+  string mother_name = 77;
+  string mother_birth_date = 78;
+  string mother_death_date = 79;
+  string parent_address = 80;
+  uint32 parent_regency_id = 81;
+  string parent_postal_code = 82;
+  string parent_phone_number = 83;
+  string parent_email = 84;
+  string father_final_academic_background = 85;
+  string father_occupation = 86;
+  string mother_final_academic_background = 87;
+  string mother_occupation = 88;
+  double parent_income = 89;
+  bool is_financially_capable = 90;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string name = 2;
+  string sex = 3;
+  string marital_status = 4;
+  uint32 birth_regency_id = 5;
+  string birth_date = 6;
+  string religion = 7;
+  string address = 8;
+  string rt = 9;
+  string rw = 10;
+  uint32 village_id = 11;
+  string postal_code = 12;
+  string previous_address = 13;
+  string id_number = 14;
+  string npwp_number = 15;
+  string nisn_number = 16;
+  string residence_type = 17;
+  string transportation_mean = 18;
+  string kps_receiver = 19;
+  string phone_number = 20;
+  string mobile_phone_number = 21;
+  string email = 22;
+  string homepage = 23;
+  string work_type = 24;
+  string work_place = 25;
+  string nationality = 26;
+  string askes_number = 27;
+  uint32 total_brother = 28;
+  uint32 total_sister = 29;
+  string hobby = 30;
+  string experience = 31;
+  uint32 total_dependent = 32;
+  int64 nim_number = 33;
+  uint32 student_force = 34;
+  string admittance_semester = 35;
+  string study_program_id = 36;
+  string curriculum_id = 37;
+  string admittance_test_number = 38;
+  string admittance_date = 39;
+  string admittance_status = 40;
+  uint32 total_transfer_credit = 41;
+  string previous_college = 42;
+  string previous_study_program = 43;
+  int64 previous_nim_number = 44;
+  string previous_nim_admittance_year = 45;
+  string status = 46;
+  bool is_foreign_student = 47;
+  string college_entrance_type = 48;
+  string class_time = 49;
+  string fund_source = 50;
+  bool is_scholarship_grantee = 51;
+  bool has_complete_requirement = 52;
+  string school_certificate_type = 53;
+  string school_graduation_year = 54;
+  string school_name = 55;
+  string school_accreditation = 56;
+  string school_address = 57;
+  string school_major = 58;
+  string school_certificate_number = 59;
+  string school_certificate_date = 60;
+  uint32 total_school_final_exam_subject = 61;
+  double school_final_exam_score = 62;
+  string guardian_name = 63;
+  string guardian_birth_date = 64;
+  string guardian_death_date = 65;
+  string guardian_address = 66;
+  uint32 guardian_regency_id = 67;
+  string guardian_postal_code = 68;
+  string guardian_phone_number = 69;
+  string guardian_email = 70;
+  string guardian_final_academic_background = 71;
+  string guardian_occupation = 72;
+  string father_id_number = 73;
+  string father_name = 74;
+  string father_birth_date = 75;
+  string father_death_date = 76;
+  string mother_id_number = 77;
+  string mother_name = 78;
+  string mother_birth_date = 79;
+  string mother_death_date = 80;
+  string parent_address = 81;
+  uint32 parent_regency_id = 82;
+  string parent_postal_code = 83;
+  string parent_phone_number = 84;
+  string parent_email = 85;
+  string father_final_academic_background = 86;
+  string father_occupation = 87;
+  string mother_final_academic_background = 88;
+  string mother_occupation = 89;
+  double parent_income = 90;
+  bool is_financially_capable = 91;
+
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+message BulkUpdateStatusRequest {
+  repeated string student_ids = 1;
+  string status = 2;
+  string status_date = 3;
+  string status_reference_number = 4;
+  string status_purpose = 5;
+  string status_remarks = 6;
+}
+
+message BulkUpdateStatusResponseData {}
+
+message BulkUpdateStatusResponse {
+  Meta meta = 1;
+  BulkUpdateStatusResponseData data = 2;
+}
+
+message GetStatusSummaryRequest {
+  string semester_id = 1;
+}
+
+message GetStatusSummaryResponseDataStatus {
+  string status = 1;
+  uint32 total = 2;
+}
+
+message GetStatusSummaryResponseData {
+  string study_program_id = 1;
+  string study_program_name = 2;
+  string dikti_study_program_type = 3;
+  string study_level_short_name = 4;
+  repeated GetStatusSummaryResponseDataStatus statuses = 5;
+}
+
+message GetStatusSummaryResponse {
+  Meta meta = 1;
+  repeated GetStatusSummaryResponseData data = 2;
+}
+
+message GetSubjectGradeRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string student_id = 4;
+}
+
+message GetSubjectGradeResponseData {
+  string subject_id = 1;
+  string subject_code = 2;
+  string subject_name = 3;
+  string grade_semester_id = 4;
+  string grade_semester_school_year = 5;
+  string grade_semester_type = 6;
+  double grade_point = 7;
+  string grade_code = 8;
+  bool subject_is_mandatory = 9;
+  uint32 semester_package = 10;
+  uint32 subject_total_credit = 11;
+  string subject_type = 12;
+}
+
+message GetSubjectGradeResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetSubjectGradeResponseData data = 3;
+}
+
+message BulkUpdatePaymentRequest {
+  repeated string student_ids = 1;
+}
+
+message BulkUpdatePaymentResponseData {}
+
+message BulkUpdatePaymentResponse {
+  Meta meta = 1;
+  BulkUpdatePaymentResponse data = 2;
+}
+
+message GetPaymentLogRequest {
+  string student_id = 1;
+}
+
+message GetPaymentLogResponseData {
+  string semester_id = 1;
+  string semester_type = 2;
+  uint32 semester_start_year = 3;
+  string semester_school_year = 4;
+  string created_at = 5;
+}
+
+message GetPaymentLogResponse {
+  Meta meta = 1;
+  repeated GetPaymentLogResponseData data = 2;
+}
+
+message ConvertGradeRequest {
+  string student_id = 1;
+	string mbkm_class_id = 2;
+	repeated string destination_subject_ids = 3;
+}
+
+message ConvertGradeResponseData {}
+
+message ConvertGradeResponse {
+  Meta meta = 1;
+  ConvertGradeResponseData data = 2;
+}
+
+service AdminStudentHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  rpc BulkUpdateStatus(BulkUpdateStatusRequest) returns (BulkUpdateStatusResponse) {}
+  rpc GetStatusSummary(GetStatusSummaryRequest) returns (GetStatusSummaryResponse) {}
+  rpc GetSubjectGrade(GetSubjectGradeRequest) returns (GetSubjectGradeResponse) {}
+  rpc BulkUpdatePayment(BulkUpdatePaymentRequest) returns (BulkUpdatePaymentResponse) {}
+  rpc GetPaymentLog(GetPaymentLogRequest) returns (GetPaymentLogResponse) {}
+  rpc ConvertGrade(ConvertGradeRequest) returns (ConvertGradeResponse) {}
+}
+

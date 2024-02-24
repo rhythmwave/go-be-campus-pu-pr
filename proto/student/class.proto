@@ -1,0 +1,117 @@
+syntax = "proto3";
+package student_class;
+option go_package = "handlers/student/class";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetOfferedClassListRequest {
+  string study_program_id = 1;
+}
+
+message GetOfferedClassListResponseDataClassLecturer {
+  string name = 1;
+  string front_title = 2;
+  string back_degree = 3;
+}
+
+message GetOfferedClassListResponseDataClass {
+  string id = 1;
+  string name = 2;
+  string subject_code = 3;
+  string subject_name = 4;
+  bool subject_is_mandatory = 5;
+  uint32 subject_theory_credit = 6;
+  uint32 subject_practicum_credit = 7;
+  uint32 subject_field_practicum_credit = 8;
+  uint32 maximum_participant = 9;
+  repeated GetOfferedClassListResponseDataClassLecturer lecturers = 10;
+  uint32 subject_total_lesson_plan = 11;
+}
+
+message GetOfferedClassListResponseData {
+  uint32 semester_package = 1;
+  repeated GetOfferedClassListResponseDataClass classes = 2;
+}
+
+message GetOfferedClassListResponse {
+  Meta meta = 1;
+  repeated GetOfferedClassListResponseData data = 2;
+}
+
+message GetOfferedScheduleRequest {
+  string class_id = 1;
+}
+
+message GetOfferedScheduleResponseDataSingleDaySchedule {
+  string date = 1;
+  uint32 start_time = 2;
+  uint32 end_time = 3;
+  string room_name = 4;
+}
+
+message GetOfferedScheduleResponseData {
+  string study_program_name = 1;
+  string subject_code = 2;
+  string subject_name = 3;
+  uint32 semester_package = 4;
+  uint32 theory_credit = 5;
+  uint32 practicum_credit = 6;
+  uint32 field_practicum_credit = 7;
+  double subject_minimum_passing_grade_point = 8;
+  bool subject_is_mandatory = 9;
+  uint32 maximum_participant = 10;
+  repeated string prerequisite_subjects = 11;
+  repeated GetOfferedScheduleResponseDataSingleDaySchedule single_day_schedules = 13;
+  string midterm_exam_date = 14;
+  uint32 midterm_start_time = 15;
+  uint32 midterm_end_time = 16;
+  string midterm_room_name = 17;
+  string endterm_exam_date = 18;
+  uint32 endterm_start_time = 19;
+  uint32 endterm_end_time = 20;
+  string endterm_room_name = 21;
+}
+
+message GetOfferedScheduleResponse {
+  Meta meta = 1;
+  GetOfferedScheduleResponseData data = 2;
+}
+
+message GetTakenClassRequest {
+  string semester_id = 1;
+}
+
+message GetTakenClassResponseData {
+  string id = 1;
+  string name = 2;
+  string subject_code = 3;
+  string subject_name = 4;
+  uint32 theory_credit = 5;
+  uint32 practicum_credit = 6;
+  uint32 field_practicum_credit = 7;
+}
+
+message GetTakenClassResponse {
+  Meta meta = 1;
+  repeated GetTakenClassResponseData data = 2;
+}
+
+service StudentClassHandler {
+  rpc GetOfferedClassList(GetOfferedClassListRequest) returns (GetOfferedClassListResponse) {}
+  rpc GetOfferedSchedule(GetOfferedScheduleRequest) returns (GetOfferedScheduleResponse) {}
+  rpc GetTakenClass(GetTakenClassRequest) returns (GetTakenClassResponse) {}
+}
+

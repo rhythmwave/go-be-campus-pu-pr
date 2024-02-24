@@ -1,0 +1,61 @@
+syntax = "proto3";
+package admin_graduation;
+option go_package = "handlers/admin/graduation";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message ApplyRequest {
+  string student_id = 1;
+  string application_date = 2;
+  string graduation_session_id = 3;
+}
+
+message ApplyResponseData {}
+
+message ApplyResponse {
+  Meta meta = 1;
+  ApplyResponseData data = 2;
+}
+
+message GetListStudentRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  string graduation_session_id = 5;
+}
+
+message GetListStudentResponseData {
+  string id = 1;
+  int64 nim_number = 2;
+  string name = 3;
+  string dikti_study_program_code = 4;
+  string application_date = 5;
+  string study_program_name = 6;
+  string study_level_short_name = 7;
+  string dikti_study_program_type = 8;
+}
+
+message GetListStudentResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListStudentResponseData data = 3;
+}
+
+service AdminGraduationHandler {
+  rpc Apply(ApplyRequest) returns (ApplyResponse) {}
+  rpc GetListStudent(GetListStudentRequest) returns (GetListStudentResponse) {}
+}

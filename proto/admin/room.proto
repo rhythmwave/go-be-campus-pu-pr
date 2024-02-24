@@ -1,0 +1,181 @@
+syntax = "proto3";
+package admin_room;
+option go_package = "handlers/admin/room";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string building_id = 4;
+  string is_laboratory = 5;
+  string exclude_lecture_date = 6;
+  uint32 exclude_start_time = 7;
+  uint32 exclude_end_time = 8;
+  uint32 maximum_participant = 9;
+  bool for_exam = 10;
+  string force_include_lecture_id = 11;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string code = 2;
+  string name = 3;
+  uint32 capacity = 4;
+  bool is_laboratory = 5;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string building_id = 2;
+  string building_code = 3;
+  string building_name = 4;
+  string code = 5;
+  string name = 6;
+  uint32 capacity = 7;
+  uint32 exam_capacity = 8;
+  string purpose = 9;
+  bool is_usable = 10;
+  double area = 11;
+  string phone_number = 12;
+  string facility = 13;
+  string remarks = 14;
+  string owner = 15;
+  string location = 16;
+  string study_program_id = 17;
+  string study_program_name = 18;
+  bool is_laboratory = 19;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequest {
+  string building_id = 1;
+  string code = 2;
+  string name = 3;
+  uint32 capacity = 4;
+  uint32 exam_capacity = 5;
+  bool is_usable = 6;
+  double area = 7;
+  string phone_number = 8;
+  string facility = 9;
+  string remarks = 10;
+  string purpose = 11;
+  string owner = 12;
+  string location = 13;
+  string study_program_id = 14;
+  bool is_laboratory = 15;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string code = 2;
+  string name = 3;
+  uint32 capacity = 4;
+  uint32 exam_capacity = 5;
+  bool is_usable = 6;
+  double area = 7;
+  string phone_number = 8;
+  string facility = 9;
+  string remarks = 10;
+  string purpose = 11;
+  string owner = 12;
+  string location = 13;
+  string study_program_id = 14;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+message GetScheduleRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string room_id = 4;
+  uint32 day_of_week = 5;
+  string semester_id = 6;
+}
+
+message GetScheduleResponseDataDateSchedule {
+  uint32 start_time = 1;
+  uint32 end_time = 2;
+  string subject_name = 3;
+  string class_name = 4;
+  string study_program_name = 5;
+}
+
+message GetScheduleResponseDataDate {
+  string date = 1;
+  repeated GetScheduleResponseDataDateSchedule schedules = 2;
+}
+
+message GetScheduleResponseData {
+  string room_id = 1;
+  string room_name = 2;
+  repeated GetScheduleResponseDataDate dates = 3;
+}
+
+message GetScheduleResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetScheduleResponseData data = 3;
+}
+
+service AdminRoomHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  rpc GetSchedule(GetScheduleRequest) returns (GetScheduleResponse) {}
+}
+

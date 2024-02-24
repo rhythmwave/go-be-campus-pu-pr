@@ -1,0 +1,141 @@
+syntax = "proto3";
+package lecturer_class_exam;
+option go_package = "handlers/lecturer/class_exam";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string class_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string title = 2;
+  string abstraction = 3;
+  string file_url = 4;
+  string file_path = 5;
+  string file_path_type = 6;
+  string lecturer_id = 7;
+  string lecturer_name = 8;
+  string lecturer_front_title = 9;
+  string lecturer_back_degree = 10;
+  string start_time = 11;
+  string end_time = 12;
+  uint32 total_submission = 13;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetSubmissionRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string class_exam_id = 4;
+}
+
+message GetSubmissionResponseData {
+  string id = 1;
+  string student_id = 2;
+  int64 nim_number = 3;
+  string name = 4;
+  string study_program_name = 5;
+  string file_url = 6;
+  double point = 7;
+}
+
+message GetSubmissionResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetSubmissionResponseData data = 3;
+}
+
+message CreateRequest {
+  string class_id = 1;
+  string title = 2;
+  string abstraction = 3;
+  string file_path = 4;
+  string file_path_type = 5;
+  string start_time = 6;
+  string end_time = 7;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string title = 2;
+  string abstraction = 3;
+  string file_path = 4;
+  string file_path_type = 5;
+  string start_time = 6;
+  string end_time = 7;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  repeated string ids = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+message GradeSubmissionRequestData {
+  string id = 1;
+  double point = 2;
+}
+
+message GradeSubmissionRequest {
+  string class_exam_id = 1;
+  repeated GradeSubmissionRequestData data = 2;
+}
+
+message GradeSubmissionResponseData {}
+
+message GradeSubmissionResponse {
+  Meta meta = 1;
+  GradeSubmissionResponseData data = 2;
+}
+
+service LecturerClassExamHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetSubmission(GetSubmissionRequest) returns (GetSubmissionResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  rpc GradeSubmission(GradeSubmissionRequest) returns (GradeSubmissionResponse) {}
+}

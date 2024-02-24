@@ -1,0 +1,46 @@
+syntax = "proto3";
+package student_class_announcement;
+option go_package = "handlers/student/class_announcement";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string title = 2;
+  string content = 3;
+  string file_url = 4;
+  string file_path = 5;
+  string file_path_type = 6;
+  string start_time = 7;
+  string end_time = 8;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+
+service StudentClassAnnouncementHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+}

@@ -1,0 +1,186 @@
+syntax = "proto3";
+package admin_student_activity;
+option go_package = "handlers/admin/student_activity";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string activity_type = 4;
+  string study_program_id = 5;
+  string semester_id = 6;
+  bool is_mbkm = 7;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string study_program_id = 2;
+  string study_program_name = 3;
+  string semester_id = 4;
+  string semester_school_year = 5;
+  string semester_type = 6;
+  string activity_type = 7;
+  string title = 8;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseDataParticipant {
+  string student_id = 1;
+  int64 nim_number = 2;
+  string name = 3;
+  string study_program_id = 4;
+  string study_program_name = 5;
+  string role = 6;
+}
+
+message GetDetailResponseDataMentor {
+  string lecturer_id = 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+  string front_title = 4;
+  string back_degree = 5;
+  string activity_category = 6;
+  uint32 sort = 7;
+}
+
+message GetDetailResponseDataExaminer {
+  string lecturer_id = 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+  string front_title = 4;
+  string back_degree = 5;
+  string activity_category = 6;
+  uint32 sort = 7;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string study_program_id = 2;
+  string study_program_name = 3;
+  string semester_id = 4;
+  string semester_school_year = 5;
+  string semester_type = 6;
+  string activity_type = 7;
+  string title = 8;
+  string location = 9;
+  string decision_number = 10;
+  string decision_date = 11;
+  bool is_group_activity = 12;
+  string remarks = 13;
+  repeated GetDetailResponseDataParticipant participants = 14;
+  repeated GetDetailResponseDataMentor mentors = 15;
+  repeated GetDetailResponseDataExaminer examiners = 16;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequestParticipant {
+  string student_id = 1;
+  string role = 2;
+}
+
+message CreateRequestMentor {
+  string lecturer_id = 1;
+  string activity_category = 2;
+  uint32 sort = 3;
+}
+
+message CreateRequestExaminer {
+  string lecturer_id = 1;
+  string activity_category = 2;
+  uint32 sort = 3;
+}
+
+message CreateRequest {
+  string study_program_id = 1;
+  string semester_id = 2;
+  string activity_type = 3;
+  string title = 4;
+  string location = 5;
+  string decision_number = 6;
+  string decision_date = 7;
+  bool is_group_activity = 8;
+  string remarks = 9;
+  repeated CreateRequestParticipant participants = 10;
+  repeated CreateRequestMentor mentors = 11;
+  repeated CreateRequestExaminer examiners = 12;
+  bool is_mbkm = 13;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string study_program_id = 2;
+  string semester_id = 3;
+  string activity_type = 4;
+  string title = 5;
+  string location = 6;
+  string decision_number = 7;
+  string decision_date = 8;
+  bool is_group_activity = 9;
+  string remarks = 10;
+  repeated CreateRequestParticipant participants = 11;
+  repeated CreateRequestMentor mentors = 12;
+  repeated CreateRequestExaminer examiners = 13;
+  bool is_mbkm = 14;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service AdminStudentActivityHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+

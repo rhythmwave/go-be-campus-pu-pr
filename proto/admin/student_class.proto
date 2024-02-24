@@ -1,0 +1,149 @@
+syntax = "proto3";
+package admin_student_class;
+option go_package = "handlers/admin/student_class";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_plan_id = 4;
+  string student_id = 5;
+  string semester_id = 6;
+  string is_mbkm = 7;
+}
+
+message GetListResponseDataSchedule {
+  string date = 1;
+  uint32 start_time = 2;
+  uint32 end_time = 3;
+  string room_id = 4;
+  string room_name = 5;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string class_id = 2;
+  string class_name = 3;
+  string subject_id = 4;
+  string subject_code = 5;
+  string subject_name = 6;
+  uint32 subject_total_credit = 7;
+  uint32 subject_repetition = 8;
+  repeated GetListResponseDataSchedule schedules = 9;
+  uint32 total_attendance = 10;
+  uint32 total_sick = 11;
+  uint32 total_leave = 12;
+  uint32 total_awol = 13;
+  double grade_point = 14;
+  string grade_code = 15;
+  string graded_by_admin_id = 16;
+  string graded_by_admin_name = 17;
+  string graded_by_lecturer_id = 18;
+  string graded_by_lecturer_name = 19;
+  string graded_at = 20;
+  double attendance_percentage = 21;
+  uint32 total_lecture = 22;
+  bool subject_is_mandatory = 23;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message TransferStudentClassRequestData {
+  string student_id = 1;
+  string destination_class_id = 2;
+}
+
+message TransferStudentClassRequest {
+  string source_class_id = 1;
+  repeated TransferStudentClassRequestData data = 2;
+}
+
+message TransferStudentClassResponseData {}
+
+message TransferStudentClassResponse {
+  Meta meta = 1;
+  TransferStudentClassResponseData data = 2;
+}
+
+message ReshuffleStudentClassRequestDataStudent {
+  string source_class_id = 1;
+  string student_id = 2;
+}
+
+message ReshuffleStudentClassRequestData {
+  string destination_class_id = 1;
+  repeated ReshuffleStudentClassRequestDataStudent students = 2;
+}
+
+message ReshuffleStudentClassRequest {
+  repeated ReshuffleStudentClassRequestData data = 1;
+}
+
+message ReshuffleStudentClassResponseData {}
+
+message ReshuffleStudentClassResponse {
+  Meta meta = 1;
+  ReshuffleStudentClassResponseData data = 2;
+}
+
+message MergeStudentClassRequest {
+  repeated string source_class_ids = 1;
+  string destination_class_id = 2;
+}
+
+message MergeStudentClassResponseData {}
+
+message MergeStudentClassResponse {
+  Meta meta = 1;
+  MergeStudentClassResponseData data = 2;
+}
+
+message BulkGradeStudentClassRequestStudentGrade {
+  string class_grade_component_id = 1;
+  double initial_grade = 2;
+}
+
+message BulkGradeStudentClassRequestStudent {
+  string student_id = 1;
+  repeated BulkGradeStudentClassRequestStudentGrade grades = 2;
+}
+
+message BulkGradeStudentClassRequest {
+  string class_id = 1;
+  repeated BulkGradeStudentClassRequestStudent students = 2;
+}
+
+message BulkGradeStudentClassResponseData {}
+
+message BulkGradeStudentClassResponse {
+  Meta meta = 1;
+  BulkGradeStudentClassResponseData data = 2;
+}
+
+service AdminStudentClassHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc TransferStudentClass(TransferStudentClassRequest) returns (TransferStudentClassResponse) {}
+  rpc ReshuffleStudentClass(ReshuffleStudentClassRequest) returns (ReshuffleStudentClassResponse) {}
+  rpc MergeStudentClass(MergeStudentClassRequest) returns (MergeStudentClassResponse) {}
+  rpc BulkGradeStudentClass(BulkGradeStudentClassRequest) returns (BulkGradeStudentClassResponse) {}
+}
+

@@ -1,0 +1,100 @@
+syntax = "proto3";
+package root_admin;
+option go_package = "handlers/root/admin";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+}
+
+message GetListResponseDataStudyProgram {
+  string id = 1;
+  string name = 2;
+  string study_level_short_name = 3;
+  string dikti_study_program_type = 4;
+}
+
+message GetListResponseDataPermission {
+  string id = 1;
+  string name = 2;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string username = 2;
+  string name = 3;
+  string role_id = 4;
+  string role_name = 5;
+  repeated GetListResponseDataStudyProgram study_programs = 6;
+  repeated GetListResponseDataPermission permissions = 7;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message CreateRequest {
+  string username = 1;
+  string name = 2;
+  string password = 3;
+  string role_id = 4;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string username = 2;
+  string name = 3;
+  string password = 4;
+  string role_id = 5;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service RootAdminHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+

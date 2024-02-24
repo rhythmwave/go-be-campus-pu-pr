@@ -1,0 +1,41 @@
+syntax = "proto3";
+package root_dashboard;
+option go_package = "handlers/root/dashboard";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetDashboardRequest {}
+
+message GetDashboardResponseData {
+  uint32 total_active_students = 1;
+  uint32 total_male_students = 2;
+  uint32 total_female_students = 3;
+  uint32 total_active_lecturer = 4;
+  uint32 total_active_semester_study_plan = 5;
+  uint32 total_active_semester_unsubmitted_study_plan = 6;
+  double highest_grade_point = 7;
+  double highest_gpa = 8;
+}
+
+message GetDashboardResponse {
+  Meta meta = 1;
+  GetDashboardResponseData data = 2;
+}
+
+service RootDashboardHandler {
+  rpc GetDashboard(GetDashboardRequest) returns (GetDashboardResponse) {}
+}
+

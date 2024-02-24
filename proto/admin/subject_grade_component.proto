@@ -1,0 +1,58 @@
+syntax = "proto3";
+package admin_subject_grade_component;
+option go_package = "handlers/admin/subject_grade_component";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  string subject_id = 1;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string name = 2;
+  double percentage = 3;
+  bool is_active = 4;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  repeated GetListResponseData data = 2;
+}
+
+message SetRequestData {
+  string name = 1;
+  double percentage = 2;
+  bool is_active = 3;
+}
+
+message SetRequest {
+  string subject_id = 1;
+  repeated SetRequestData data = 2;
+}
+
+message SetResponseData {}
+
+message SetResponse {
+  Meta meta = 1;
+  SetResponseData data = 2;
+}
+
+service AdminSubjectGradeComponentHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc Set(SetRequest) returns (SetResponse) {}
+}
+

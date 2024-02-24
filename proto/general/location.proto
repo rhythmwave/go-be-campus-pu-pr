@@ -1,0 +1,147 @@
+syntax = "proto3";
+package general_location;
+option go_package = "handlers/general/location";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListCountryRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+}
+
+message GetListCountryResponseData {
+  uint64 id = 1;
+  string name = 2;
+}
+
+message GetListCountryResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListCountryResponseData data = 3;
+}
+
+message GetListProvinceRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  uint32 country_id = 4;
+}
+
+message GetListProvinceResponseData {
+  uint64 id = 1;
+  string name = 2;
+}
+
+message GetListProvinceResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListProvinceResponseData data = 3;
+}
+
+message GetListRegencyRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  uint32 province_id = 4;
+}
+
+message GetListRegencyResponseData {
+  uint64 id = 1;
+  string name = 2;
+}
+
+message GetListRegencyResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListRegencyResponseData data = 3;
+}
+
+message GetListDistrictRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  uint32 regency_id = 4;
+}
+
+message GetListDistrictResponseData {
+  uint64 id = 1;
+  string name = 2;
+}
+
+message GetListDistrictResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListDistrictResponseData data = 3;
+}
+
+message GetListVillageRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  uint32 district_id = 4;
+}
+
+message GetListVillageResponseData {
+  uint64 id = 1;
+  string name = 2;
+}
+
+message GetListVillageResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListVillageResponseData data = 3;
+}
+
+message TempCreateDataRequest {
+  string title = 1;
+  string body = 2;
+}
+
+message TempCreateDataResponseData {}
+
+message TempCreateDataResponse {
+  Meta meta = 1;
+  TempCreateDataResponseData data = 2;
+}
+
+message TempGetDataRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+}
+
+message TempGetDataResponseData {
+  string id = 1;
+  string title = 2;
+  string body = 3;
+}
+
+message TempGetDataResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated TempGetDataResponseData data = 3;
+}
+
+service GeneralLocationHandler {
+  rpc GetListCountry(GetListCountryRequest) returns (GetListCountryResponse) {}
+  rpc GetListProvince(GetListProvinceRequest) returns (GetListProvinceResponse) {}
+  rpc GetListRegency(GetListRegencyRequest) returns (GetListRegencyResponse) {}
+  rpc GetListDistrict(GetListDistrictRequest) returns (GetListDistrictResponse) {}
+  rpc GetListVillage(GetListVillageRequest) returns (GetListVillageResponse) {}
+  rpc TempCreateData(TempCreateDataRequest) returns (TempCreateDataResponse) {}
+  rpc TempGetData(TempGetDataRequest) returns (TempGetDataResponse) {}
+}
+

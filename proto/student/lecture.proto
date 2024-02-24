@@ -1,0 +1,58 @@
+syntax = "proto3";
+package student_lecture;
+option go_package = "handlers/student/lecture";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetHistoryRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string start_date = 3;
+  string end_date = 4;
+}
+
+message GetHistoryResponseData {
+  string id = 1;
+  string lecture_date = 2;
+  string subject_name = 3;
+  uint32 attend_time = 4;
+}
+
+message GetHistoryResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetHistoryResponseData data = 3;
+}
+
+message AttendAutonomousLectureRequest {
+  string lecture_id = 1;
+  string photo_path = 2;
+  string photo_path_type = 3;
+}
+
+message AttendAutonomousLectureResponseData {}
+
+message AttendAutonomousLectureResponse {
+  Meta meta = 1;
+  AttendAutonomousLectureResponseData data = 2;
+}
+
+
+service StudentLectureHandler {
+  rpc AttendAutonomousLecture(AttendAutonomousLectureRequest) returns (AttendAutonomousLectureResponse) {}
+  rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse) {}
+}
+

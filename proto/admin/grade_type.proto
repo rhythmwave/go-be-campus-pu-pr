@@ -1,0 +1,108 @@
+syntax = "proto3";
+package admin_grade_type;
+option go_package = "handlers/admin/grade_type";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_level_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string study_level_id = 2;
+  string study_level_short_name = 3;
+  string code = 4;
+  double grade_point = 5;
+  double minimum_grade = 6;
+  double maximum_grade = 7;
+  string grade_category = 8;
+  double grade_point_category = 9;
+  string label = 10;
+  string english_label = 11;
+  string start_date = 12;
+  string end_date = 13;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message CreateRequest {
+  string study_level_id = 1;
+  string code = 2;
+  double grade_point = 3;
+  double minimum_grade = 4;
+  double maximum_grade = 5;
+  string grade_category = 6;
+  double grade_point_category = 7;
+  string label = 8;
+  string english_label = 9;
+  string start_date = 10;
+  string end_date = 11;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string code = 2;
+  double grade_point = 3;
+  double minimum_grade = 4;
+  double maximum_grade = 5;
+  string grade_category = 6;
+  double grade_point_category = 7;
+  string label = 8;
+  string english_label = 9;
+  string start_date = 10;
+  string end_date = 11;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service AdminGradeTypeHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+

@@ -1,0 +1,175 @@
+syntax = "proto3";
+package root_study_program;
+option go_package = "handlers/root/study_program";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string major_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string name = 2;
+  string study_level_short_name = 3;
+  string dikti_study_program_type = 4;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string dikti_study_program_id = 2;
+  string dikti_study_program_code = 3;
+  string dikti_study_program_name = 4;
+  string dikti_study_program_type = 5;
+  string study_level_short_name = 6;
+  string study_level_name = 7;
+  string name = 8;
+  string english_name = 9;
+  string short_name = 10;
+  string english_short_name = 11;
+  string administrative_unit = 12;
+  string faculty_id = 13;
+  string faculty_name = 14;
+  string major_id = 15;
+  string major_name = 16;
+  string address = 17;
+  string phone_number = 18;
+  string fax = 19;
+  string email = 20;
+  string website = 21;
+  string contact_person = 22;
+  string curiculum_review_frequency = 23;
+  string curiculum_review_method = 24;
+  string establishment_date = 25;
+  bool is_active = 26;
+  string start_semester = 27;
+  string operational_permit_number = 28;
+  string operational_permit_date = 29;
+  string operational_permit_due_date = 30;
+  string head_lecturer_id = 31;
+  string head_lecturer_mobile_phone_number = 32;
+  string operator_name = 33;
+  string operator_phone_number = 34;
+  string head_lecturer_name = 35;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+
+message CreateRequest {
+  string dikti_study_program_id = 1;
+  string name = 2;
+  string english_name = 3;
+  string short_name = 4;
+  string english_short_name = 5;
+  string administrative_unit = 6;
+  string major_id = 7;
+  string address = 8;
+  string phone_number = 9;
+  string fax = 10;
+  string email = 11;
+  string website = 12;
+  string contact_person = 13;
+  string curiculum_review_frequency = 14;
+  string curiculum_review_method = 15;
+  string establishment_date = 16;
+  bool is_active = 17;
+  string start_semester = 18;
+  string operational_permit_number = 19;
+  string operational_permit_date = 20;
+  string operational_permit_due_date = 21;
+  string head_lecturer_id = 22;
+  string operator_name = 23;
+  string operator_phone_number = 24;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string dikti_study_program_id = 2;
+  string name = 3;
+  string english_name = 4;
+  string short_name = 5;
+  string english_short_name = 6;
+  string administrative_unit = 7;
+  string major_id = 8;
+  string address = 9;
+  string phone_number = 10;
+  string fax = 11;
+  string email = 12;
+  string website = 13;
+  string contact_person = 14;
+  string curiculum_review_frequency = 15;
+  string curiculum_review_method = 16;
+  string establishment_date = 17;
+  bool is_active = 18;
+  string start_semester = 19;
+  string operational_permit_number = 20;
+  string operational_permit_date = 21;
+  string operational_permit_due_date = 22;
+  string head_lecturer_id = 23;
+  string operator_name = 24;
+  string operator_phone_number = 25;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service RootStudyProgramHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+

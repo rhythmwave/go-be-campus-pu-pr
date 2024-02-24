@@ -1,0 +1,152 @@
+syntax = "proto3";
+package admin_study_program;
+option go_package = "handlers/admin/study_program";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string major_id = 4;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string name = 2;
+  string study_level_name = 3;
+  string dikti_study_program_type = 4;
+  string dikti_study_program_code = 5;
+  string accreditation = 6;
+  string active_curriculum_year = 7;
+  string degree = 8;
+  string short_degree = 9;
+  string english_degree = 10;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string dikti_study_program_id = 2;
+  string dikti_study_program_code = 3;
+  string dikti_study_program_name = 4;
+  string dikti_study_program_type = 5;
+  string study_level_short_name = 6;
+  string study_level_name = 7;
+  string name = 8;
+  string english_name = 9;
+  string short_name = 10;
+  string english_short_name = 11;
+  string administrative_unit = 12;
+  string faculty_id = 13;
+  string faculty_name = 14;
+  string major_id = 15;
+  string major_name = 16;
+  string address = 17;
+  string phone_number = 18;
+  string fax = 19;
+  string email = 20;
+  string website = 21;
+  string contact_person = 22;
+  string curiculum_review_frequency = 23;
+  string curiculum_review_method = 24;
+  string establishment_date = 25;
+  bool is_active = 26;
+  string start_semester = 27;
+  string operational_permit_number = 28;
+  string operational_permit_date = 29;
+  string operational_permit_due_date = 30;
+  string head_lecturer_id = 31;
+  string head_lecturer_mobile_phone_number = 32;
+  string operator_name = 33;
+  string operator_phone_number = 34;
+  uint32 minimum_graduation_credit = 35;
+  string head_lecturer_name = 36;
+  uint32 minimum_thesis_credit = 37;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string dikti_study_program_id = 2;
+  string name = 3;
+  string english_name = 4;
+  string short_name = 5;
+  string english_short_name = 6;
+  string administrative_unit = 7;
+  string major_id = 8;
+  string address = 9;
+  string phone_number = 10;
+  string fax = 11;
+  string email = 12;
+  string website = 13;
+  string contact_person = 14;
+  string curiculum_review_frequency = 15;
+  string curiculum_review_method = 16;
+  string establishment_date = 17;
+  bool is_active = 18;
+  string start_semester = 19;
+  string operational_permit_number = 20;
+  string operational_permit_date = 21;
+  string operational_permit_due_date = 22;
+  string head_lecturer_id = 23;
+  string operator_name = 24;
+  string operator_phone_number = 25;
+  uint32 minimum_graduation_credit = 26;
+  uint32 minimum_thesis_credit = 27;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message UpdateDegreeRequest {
+  string study_program_id = 1;
+  string degree = 2;
+  string short_degree = 3;
+  string english_degree = 4;
+}
+
+message UpdateDegreeResponseData {}
+
+message UpdateDegreeResponse {
+  Meta meta = 1;
+  UpdateDegreeResponseData data = 2;
+}
+
+service AdminStudyProgramHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc UpdateDegree(UpdateDegreeRequest) returns (UpdateDegreeResponse) {}
+}
+

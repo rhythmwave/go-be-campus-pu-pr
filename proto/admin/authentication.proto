@@ -1,0 +1,110 @@
+syntax = "proto3";
+package admin_authentication;
+option go_package = "handlers/admin/authentication";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string username = 2;
+  string authentication_type = 3;
+  string admin_id = 4;
+  string admin_name = 5;
+  string lecturer_id = 6;
+  string lecturer_name = 7;
+  string student_id = 8;
+  string student_name = 9;
+  bool is_active = 10;
+  string suspension_remarks = 11;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequest {
+  string authentication_type = 1;
+  string user_id = 2;
+}
+
+message CreateResponseData {
+  string username = 1;
+  string password = 2;
+}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message BulkCreateRequest {
+  string authentication_type = 1;
+  repeated string user_ids = 2;
+}
+
+message BulkCreateResponseData {
+  string user_id = 1;
+  string name = 2;
+  string username = 3;
+  string password = 4;
+}
+
+message BulkCreateResponse {
+  Meta meta = 1;
+  repeated BulkCreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  bool is_active = 2;
+  string suspension_remarks = 3;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+message UpdatePasswordRequest {
+  string id = 1;
+}
+
+message UpdatePasswordResponseData {
+  string new_password = 1;
+}
+
+message UpdatePasswordResponse {
+  Meta meta = 1;
+  UpdatePasswordResponseData data = 2;
+}
+
+service AdminAuthenticationHandler {
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc BulkCreate(BulkCreateRequest) returns (BulkCreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse) {}
+}

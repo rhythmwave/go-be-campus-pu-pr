@@ -1,0 +1,353 @@
+syntax = "proto3";
+package admin_thesis;
+option go_package = "handlers/admin/thesis";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  int64 nim_number = 5;
+  string start_semester_id = 6;
+  string status = 7;
+  string supervisor_lecturer_id = 8;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string topic = 2;
+  string title = 3;
+  string status = 4;
+  string student_id = 5;
+  string student_name = 6;
+  int64 student_nim_number = 7;
+  string student_status = 8;
+  string study_program_id = 9;
+  string study_program_name = 10;
+  string dikti_study_program_code = 11;
+  string dikti_study_program_type = 12;
+  string study_level_short_name = 13;
+  bool student_has_thesis_study_plan = 14;
+  string start_semester_id = 15;
+  string start_semester_type = 16;
+  string start_semester_school_year = 17;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message GetDetailResponseDataFile {
+  string id = 1;
+  string file_url = 2;
+  string file_path = 3;
+  string file_path_type = 4;
+  string file_description = 5;
+}
+
+message GetDetailResponseDataThesisSupervisor {
+  string id = 1;
+  string lecturer_id = 2;
+  string lecturer_name = 3;
+  string lecturer_front_title = 4;
+  string lecturer_back_degree = 5;
+  string thesis_supervisor_role_id = 6;
+  string thesis_supervisor_role_name = 7;
+  uint32 thesis_supervisor_role_sort = 8;
+}
+
+message GetDetailResponseData {
+  string id = 1;
+  string student_id = 2;
+  string student_name = 3;
+  int64 student_nim_number = 4;
+  string start_semester_id = 5;
+  string start_semester_type = 6;
+  string start_semester_school_year = 7;
+  string finish_semester_id = 8;
+  string finish_semester_type = 9;
+  string finish_semester_school_year = 10;
+  string topic = 11;
+  string title = 12;
+  string english_title = 13;
+  string start_date = 14;
+  string finish_date = 15;
+  string remarks = 16;
+  bool is_joint_thesis = 17;
+  string status = 18;
+  string proposal_seminar_date = 19;
+  string proposal_certificate_number = 20;
+  string proposal_certificate_date = 21;
+  uint32 thesis_defense_count = 22;
+  double grade_point = 23;
+  string grade_code = 24;
+  repeated GetDetailResponseDataFile files = 25;
+  repeated GetDetailResponseDataThesisSupervisor thesis_supervisors = 26;
+  string study_program_id = 27;
+}
+
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequestThesisSupervisor {
+  string lecturer_id = 1;
+  string thesis_supervisor_role_id = 2;
+}
+
+message CreateRequest {
+  string student_id = 1;
+  string topic = 2;
+  string status =3;
+  string title = 4;
+  string english_title = 5;
+  string start_semester_id = 6;
+  string start_date = 7;
+  string remarks = 8;
+  bool is_joint_thesis = 9;
+  string file_path = 10;
+  string file_path_type = 11;
+  string file_description = 12;
+  string proposal_seminar_date = 13;
+  string proposal_certificate_number = 14;
+  string proposal_certificate_date = 15;
+  repeated CreateRequestThesisSupervisor thesis_supervisors = 16;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequestFile {
+  string file_path = 1;
+  string file_path_type = 2;
+  string file_description = 3;
+}
+
+message UpdateRequestThesisSupervisor {
+  string lecturer_id = 1;
+  string thesis_supervisor_role_id = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string student_id = 2;
+  string start_semester_id = 3;
+  string finish_semester_id = 4;
+  string topic = 5;
+  string title = 6;
+  string english_title = 7;
+  string start_date = 8;
+  string finish_date = 9;
+  string remarks = 10;
+  bool is_joint_thesis = 11;
+  string status = 12;
+  string proposal_seminar_date = 13;
+  string proposal_certificate_number = 14;
+  string proposal_certificate_date = 15;
+  repeated UpdateRequestFile files = 16;
+  repeated UpdateRequestThesisSupervisor thesis_supervisors = 17;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+message RegisterThesisDefenseRequest {
+  string student_id = 1;
+}
+
+message RegisterThesisDefenseResponseData {}
+
+message RegisterThesisDefenseResponse {
+  Meta meta = 1;
+  RegisterThesisDefenseResponseData data = 2;
+}
+
+message GetListThesisDefenseRequestRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  int64 nim_number = 5;
+  string start_semester_id = 6;
+}
+
+message GetListThesisDefenseRequestResponseDataExaminer {
+  string id = 1;
+  string lecturer_id = 2;
+  string lecturer_name = 3;
+  string lecturer_front_title = 4;
+  string lecturer_back_degree = 5;
+  string thesis_examiner_role_id = 6;
+  string thesis_examiner_role_name = 7;
+}
+
+message GetListThesisDefenseRequestResponseData {
+	string id = 1;
+	string student_id = 2;
+	string student_name = 3;
+	int64 student_nim_number = 4;
+	string student_status = 5;
+	string study_program_id = 6;
+	string study_program_name = 7;
+	string dikti_study_program_code = 8;
+	string dikti_study_program_type = 9;
+	string study_level_short_name = 10;
+	string thesis_id = 11;
+	string thesis_title = 12;
+	string thesis_status = 13;
+	uint32 thesis_defense_count = 14;
+	string thesis_defense_id = 15;
+	string thesis_defense_plan_date = 16;
+	uint32 thesis_defense_plan_start_time = 17;
+	uint32 thesis_defense_plan_end_time = 18;
+	string thesis_defense_actual_date = 19;
+	uint32 thesis_defense_actual_start_time = 20;
+	uint32 thesis_defense_actual_end_time = 21;
+	bool thesis_defense_is_passed = 22;
+	string created_at = 23;
+  repeated GetListThesisDefenseRequestResponseDataExaminer examiners = 24;
+  string thesis_defense_room_id = 25;
+	string thesis_defense_room_name = 26;
+	string study_level_id = 27;
+  string thesis_defense_revision = 28;
+  string thesis_grade_code = 29;
+}
+
+message GetListThesisDefenseRequestResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListThesisDefenseRequestResponseData data = 3;
+}
+
+message CreateThesisDefenseRequestExaminer {
+  string lecturer_id = 1;
+  string thesis_examiner_role_id = 2;
+}
+
+message CreateThesisDefenseRequest {
+  string thesis_id = 1;
+  string plan_date = 2;
+  uint32 plan_start_time = 3;
+  uint32 plan_end_time = 4;
+  string room_id = 5;
+  repeated CreateThesisDefenseRequestExaminer examiners = 6;
+}
+
+message CreateThesisDefenseResponseData {}
+
+message CreateThesisDefenseResponse {
+  Meta meta = 1;
+  CreateThesisDefenseResponseData data = 2;
+}
+
+message UpdateThesisDefenseRequestExaminer {
+  string lecturer_id = 1;
+  string thesis_examiner_role_id = 2;
+}
+
+message UpdateThesisDefenseRequest {
+  string id = 1;
+  string plan_date = 2;
+  uint32 plan_start_time = 3;
+  uint32 plan_end_time = 4;
+  string room_id = 5;
+  string actual_date = 6;
+  uint32 actual_start_time = 7;
+  uint32 actual_end_time = 8;
+  bool is_passed = 9;
+  string revision = 10;
+  string grade_code = 11;
+  repeated UpdateThesisDefenseRequestExaminer examiners = 12;
+}
+
+message UpdateThesisDefenseResponseData {}
+
+message UpdateThesisDefenseResponse {
+  Meta meta = 1;
+  UpdateThesisDefenseResponseData data = 2;
+}
+
+message GetThesisSupervisorLogRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string id_national_lecturer = 4;
+  string semester_id = 5;
+}
+
+message GetThesisSupervisorLogResponseDataThesisSupervisorRole {
+  string id = 1;
+  string name = 2;
+  uint32 total = 3;
+}
+
+message GetThesisSupervisorLogResponseData {
+  string id = 1;
+  string id_national_lecturer = 2;
+  string name = 3;
+  uint32 total_supervised_thesis = 4;
+  uint32 active_supervised_thesis = 5;
+  repeated GetThesisSupervisorLogResponseDataThesisSupervisorRole thesis_supervisor_roles = 6;
+}
+
+message GetThesisSupervisorLogResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetThesisSupervisorLogResponseData data = 3;
+}
+
+service AdminThesisHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  rpc GetListThesisDefenseRequest(GetListThesisDefenseRequestRequest) returns (GetListThesisDefenseRequestResponse) {}
+  rpc RegisterThesisDefense(RegisterThesisDefenseRequest) returns (RegisterThesisDefenseResponse) {}
+  rpc CreateThesisDefense(CreateThesisDefenseRequest) returns (CreateThesisDefenseResponse) {}
+  rpc UpdateThesisDefense(UpdateThesisDefenseRequest) returns (UpdateThesisDefenseResponse) {}
+  rpc GetThesisSupervisorLog(GetThesisSupervisorLogRequest) returns (GetThesisSupervisorLogResponse) {}
+}
+

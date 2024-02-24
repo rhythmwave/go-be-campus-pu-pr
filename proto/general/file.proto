@@ -1,0 +1,30 @@
+syntax = "proto3";
+package general_file;
+option go_package = "handlers/general/file";
+
+message Meta {
+    string message = 1;
+    uint32 status = 2;
+    string code = 3;
+}
+
+message FileBase64Request {
+    string file = 1;
+}
+
+message PathResponse {
+    string path = 1;
+    string mime_type = 2;
+    int64 size = 3;
+    string url = 4;
+    string path_type = 5;
+}
+
+message FileResponse {
+    Meta meta = 1;
+    PathResponse data = 2;
+}
+
+service GeneralFileHandler {
+    rpc UploadBase64Temp(FileBase64Request) returns (FileResponse) {}
+}

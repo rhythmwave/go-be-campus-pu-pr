@@ -1,0 +1,138 @@
+syntax = "proto3";
+package admin_grade_component;
+option go_package = "handlers/admin/grade_component";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+  string subject_category_id = 5;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string study_program_id = 2;
+  string study_program_name = 3;
+  string subject_category_id = 4;
+  string subject_category_name = 5;
+  string name = 6;
+  bool is_active = 7;
+  double default_percentage = 8;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message CreateRequest {
+  string study_program_id = 1;
+  string subject_category_id = 2;
+  string name = 3;
+  bool is_active = 4;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string subject_category_id = 2;
+  string name = 3;
+  bool is_active = 4;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+message GetListBySubjectCategoryRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string study_program_id = 4;
+}
+
+message GetListBySubjectCategoryResponseDataGradeComponent {
+  string id = 1;
+  string name = 2;
+  double default_percentage = 3;
+  bool is_active = 4;
+}
+
+message GetListBySubjectCategoryResponseData {
+  string study_program_id = 1;
+  string study_program_name = 2;
+  string subject_category_id = 3;
+  string subject_category_name = 4;
+  repeated GetListBySubjectCategoryResponseDataGradeComponent grade_components = 5;
+}
+
+message GetListBySubjectCategoryResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListBySubjectCategoryResponseData data = 3;
+}
+
+message BulkUpdatePercentageRequestGradeComponent {
+  string id = 1;
+  double default_percentage = 2;
+  bool is_active = 3;
+}
+
+message BulkUpdatePercentageRequest {
+  string study_program_id = 1;
+  string subject_category_id = 2;
+  repeated BulkUpdatePercentageRequestGradeComponent grade_components = 3;
+}
+
+message BulkUpdatePercentageResponseData {}
+
+message BulkUpdatePercentageResponse {
+  Meta meta = 1;
+  BulkUpdatePercentageResponseData data = 2;
+}
+
+service AdminGradeComponentHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  rpc GetListBySubjectCategory(GetListBySubjectCategoryRequest) returns (GetListBySubjectCategoryResponse) {}
+  rpc BulkUpdatePercentage(BulkUpdatePercentageRequest) returns (BulkUpdatePercentageResponse) {}
+}

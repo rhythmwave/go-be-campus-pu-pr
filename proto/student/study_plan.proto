@@ -1,0 +1,100 @@
+syntax = "proto3";
+package student_study_plan;
+option go_package = "handlers/student/study_plan";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetDetailRequest {
+  string semester_id = 1;
+}
+
+message GetDetailResponseDataClassSchedule {
+  string date = 1;
+  uint32 start_time = 2;
+  uint32 end_time = 3;
+  string room_id = 4;
+  string room_name = 5;
+}
+
+message GetDetailResponseDataClass {
+  string id = 1;
+  string name = 2;
+  string subject_id = 3;
+  string subject_name = 4;
+  string subject_code = 5;
+  uint32 subject_theory_credit = 6;
+  uint32 subject_field_practicum_credit = 7;
+  uint32 subject_practicum_credit = 8;
+  repeated GetDetailResponseDataClassSchedule schedules = 9;
+  uint32 total_lecture_done = 10;
+  uint32 total_attendance = 11;
+  string active_lecture_id = 12;
+  double grade_point = 13;
+  string grade_code = 14;
+  bool active_lecture_has_attend = 15;
+  bool subject_is_mandatory = 16;
+  GetDetailResponseDataClassSchedule nearest_schedule = 17;
+}
+
+message GetDetailResponseData {
+  string study_plan_input_start_date	= 1;
+  string study_plan_input_end_date	= 2;
+  string id = 3;
+  bool is_approved = 4;
+  string student_id = 5;
+  int64 student_nim_number = 6;
+  string student_name = 7;
+  string study_program_id = 8;
+  string study_program_name = 9;
+  string semester_id = 10;
+  string semester_school_year = 11;
+  string semester_type = 12;
+  uint32 maximum_credit = 13;
+  string academic_guidance_lecturer_id = 14;
+  string academic_guidance_lecturer_name = 15;
+  string academic_guidance_lecturer_front_title = 16;
+  string academic_guidance_lecturer_back_degree = 17;
+  repeated GetDetailResponseDataClass classes = 18;
+  bool is_submitted = 19;
+  uint32 total_mandatory_credit = 20;
+  uint32 total_optional_credit = 21;
+  double grade_point = 22;
+  double gpa = 23;
+  bool is_thesis = 24;
+}
+
+message GetDetailResponse {
+  Meta meta = 1;
+  GetDetailResponseData data = 2;
+}
+
+message CreateRequest {
+  repeated string class_ids = 1;
+  bool is_thesis = 2;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+service StudentStudyPlanHandler {
+  rpc GetDetail(GetDetailRequest) returns (GetDetailResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+}
+

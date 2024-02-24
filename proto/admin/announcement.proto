@@ -1,0 +1,111 @@
+syntax = "proto3";
+package admin_announcement;
+option go_package = "handlers/admin/announcement";
+
+message Meta {
+  string message = 1;
+  uint32 status = 2;
+  string code = 3;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 limit = 2;
+  uint32 prev = 3;
+  uint32 next = 4;
+  uint32 total_pages = 5;
+  uint32 total_records = 6;
+}
+
+message GetListRequest {
+  uint32 page = 1;
+  uint32 limit = 2;
+  string search = 3;
+  string type = 4;
+}
+
+message GetListResponseDataStudyProgram {
+  string study_program_id = 1;
+  string study_program_name = 2;
+}
+
+message GetListResponseData {
+  string id = 1;
+  string type = 2;
+  string title = 3;
+  string announcement_date = 4;
+  string file_url = 5;
+  string file_path = 6;
+  string file_path_type = 7;
+  string file_title = 8;
+  string content = 9;
+  bool for_lecturer = 10;
+  bool for_student = 11;
+  repeated GetListResponseDataStudyProgram study_programs = 12;
+}
+
+message GetListResponse {
+  Meta meta = 1;
+  Pagination pagination = 2;
+  repeated GetListResponseData data = 3;
+}
+
+message CreateRequest {
+  string type = 1;
+  string title = 2;
+  string announcement_date = 3;
+  string file_path = 4;
+  string file_path_type = 5;
+  string file_title = 6;
+  string content = 7;
+  bool for_lecturer = 8;
+  bool for_student = 9;
+  repeated string study_program_ids = 10;
+}
+
+message CreateResponseData {}
+
+message CreateResponse {
+  Meta meta = 1;
+  CreateResponseData data = 2;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string type = 2;
+  string title = 3;
+  string announcement_date = 4;
+  string file_path = 5;
+  string file_path_type = 6;
+  string file_title = 7;
+  string content = 8;
+  bool for_lecturer = 9;
+  bool for_student = 10;
+  repeated string study_program_ids = 11;
+}
+
+message UpdateResponseData {}
+
+message UpdateResponse {
+  Meta meta = 1;
+  UpdateResponseData data = 2;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponseData {}
+
+message DeleteResponse {
+  Meta meta = 1;
+  DeleteResponseData data = 2;
+}
+
+service AdminAnnouncementHandler {
+  rpc GetList(GetListRequest) returns (GetListResponse) {}
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+
